@@ -9,7 +9,7 @@
     <arg name="pub_map_scanmatch_transform" default="false"/>
 
     <arg name="scan_subscriber_queue_size" default="5"/>
-    <arg name="scan_topic" default="/sensors/scan"/>
+    <arg name="scan_topic" default="/scan"/>
     <arg name="map_size" default="2048"/>
     <arg name="namespace" default="hector"/>
 
@@ -50,7 +50,7 @@
 
     </node>
 
-    <node pkg="base_controller" type="slam_odometry_node" name="slam_odometry_node" clear_params="true" output="screen">
+	<node pkg="base_controller" type="slam_odometry_node" name="slam_odometry_node" clear_params="true" output="screen">
         <rosparam command="load" file="$(find base_controller)/config/slam_odom_config.yaml"/>
-    </node>
+    </node> 
 </launch>

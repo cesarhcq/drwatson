@@ -2,12 +2,12 @@
 <launch>
 
 	<!-- Carrega o arquivo do mapa -->
-	<arg name="map_file" default="$(find autonomous_navigation)/maps/escritorio.yaml"/>
+	<arg name="map_file" default="$(find autonomous_navigation)/maps/laboratorio_fem_001.yaml"/>
 	<rosparam file="$(arg map_file)" command="load" ns="map_info"/>
 	<node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
 
 	<!-- Publica a odometria do laser -->
-	<include file="$(find base_controller)/launch/hectormapping.launch">
+	<include file="$(find base_controller)/launch/hectormapping_hokuyo.launch">
 		<arg name="pub_map_odom_transform" value="true"/>
 		<arg name="pub_map_scanmatch_transform" value="false"/>
 		<arg name="namespace" value="hector"/>
@@ -36,6 +36,6 @@
         <!-- <rosparam file="$(find autonomous_navigation)/param/dwa_local_planner_params.yaml" command="load" /> -->
     </node>
 
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find autonomous_navigation)/rviz/amcl_real_navigation.rviz" />
+<!--    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find autonomous_navigation)/rviz/amcl_real_navigation.rviz" /> -->
 
 </launch>

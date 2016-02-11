@@ -217,5 +217,8 @@ target_link_libraries(base_controller ${catkin_LIBRARIES})
 add_executable(slam_odometry_node src/slam_odometry.cpp)
 target_link_libraries(slam_odometry_node ${catkin_LIBRARIES})
 
+add_executable(waypoints_nav_node src/waypoints_nav_node.cpp)
+target_link_libraries(waypoints_nav_node ${catkin_LIBRARIES})
+
 
 
