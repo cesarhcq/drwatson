@@ -1,6 +1,6 @@
 # Watson UVC Robot - Autonomous Robotic Platform for Disinfection (Covid19)
 
-Watson UVC Robot is an autonomous robotic platform developed by [PUC Campinas](http://www.puc-campinas.edu.br) for classroom disinfection environments. Watson UVC Robot is based on Arlo Robot as mobile platform to perform different tasks in an indoor environments. Watson UVC Robot is based on Robot Operating System (ROS) - see more in [ROS Wiki](https://www.ros.org/), Arduino Mega and Raspberry Pi 4.
+W-UVC Robot is an autonomous robotic platform developed by [PUC Campinas](http://www.puc-campinas.edu.br) for classroom disinfection environments. W-UVC Robot is a differential drive mobile platform to perform different tasks in an indoor environments. W-UVC Robot is based on Robot Operating System (ROS) - see more in [ROS Wiki](https://www.ros.org/), Arduino Mega and Raspberry Pi 4.
 
 Version | ROS Distro | Operating System
 ------------ | ------------- | ------------
@@ -13,11 +13,9 @@ Version | ROS Distro | Operating System
 - [x] Rosserial: [Package for Arduino - Real Robot](http://wiki.ros.org/rosserial).
 
 
-## Steps to create the GuntherBOT based on ROS and Gazebo Simulator
-
 ### The first step
 
- Watson UVC Robot is based on Package the contains a C++ parser for the Unified Robot Description Format (URDF), which is an XML format for representing a robot model. The code API of the parser has been through our review process and will remain backwards compatible in future releases. (See more in: [URDF](http://wiki.ros.org/urdf)).
+ W-UVC Robot is based on Package the contains a C++ parser for the Unified Robot Description Format (URDF), which is an XML format for representing a robot model. The code API of the parser has been through our review process and will remain backwards compatible in future releases. (See more in: [URDF](http://wiki.ros.org/urdf)).
 
 ### The robot model is based on Arlo Platform with Differential drive. 
 
