@@ -1,6 +1,6 @@
-# GuntherBOT - Educational Robotic Platform
+# Watson UVC Robot - Autonomous Robotic Platform for Disinfection (Covid19)
 
-GuntherBOT is an educational robotic platform developed by [Acta Visio](http://www.acta-visio.com) for warehouse indoor environments. GuntherBOT is based on Arlo Robot as mobile platform to perform different tasks in an indoor environments. GuntherBOT was developed with Robot Operating System (ROS) - see more in [ROS Wiki](https://www.ros.org/), Arduino Mega and Raspberry Pi 3B.
+Watson UVC Robot is an autonomous robotic platform developed by [PUC Campinas](http://www.puc-campinas.edu.br) for classroom disinfection environments. Watson UVC Robot is based on Arlo Robot as mobile platform to perform different tasks in an indoor environments. Watson UVC Robot is based on Robot Operating System (ROS) - see more in [ROS Wiki](https://www.ros.org/), Arduino Mega and Raspberry Pi 4.
 
 Version | ROS Distro | Operating System
 ------------ | ------------- | ------------
@@ -17,11 +17,11 @@ Version | ROS Distro | Operating System
 
 ### The first step
 
- To create the GuntherBOT is based on Package the contains a C++ parser for the Unified Robot Description Format (URDF), which is an XML format for representing a robot model. The code API of the parser has been through our review process and will remain backwards compatible in future releases. (See more in: [URDF](http://wiki.ros.org/urdf)).
+ Watson UVC Robot is based on Package the contains a C++ parser for the Unified Robot Description Format (URDF), which is an XML format for representing a robot model. The code API of the parser has been through our review process and will remain backwards compatible in future releases. (See more in: [URDF](http://wiki.ros.org/urdf)).
 
 ### The robot model is based on Arlo Platform with Differential drive. 
 
- All components were created in the XML file with joints, collisions, pose, inertia and visual. The script file can be found here: [GuntherBOT description](https://github.com/cesarhcq/abrobot/tree/cesar-working/abrobot_description). The files used in the GuntherBOT simulation are: [Robot Xacro](https://github.com/cesarhcq/abrobot/blob/cesar-working/abrobot_description/urdf/robot2.xacro) and [Robot Gazebo](https://github.com/cesarhcq/abrobot/blob/master/abrobot_description/urdf/robot2.gazebo). If you need more information about [Arlo Description Platform](https://github.com/chrisl8/ArloBot/tree/new-serial-interface/src/arlobot/arlobot_description), visit the [Arlo Bot](https://github.com/chrisl8/ArloBot).
+ All components were created in the XML file with joints, collisions, pose, inertia and visual. The script file can be found here: [GuntherBOT description](https://github.com/cesarhcq/abrobot/tree/cesar-working/abrobot_description). The files used in the WUVC-Bot simulation are: [Robot Xacro](https://github.com/cesarhcq/abrobot/blob/cesar-working/abrobot_description/urdf/robot2.xacro) and [Robot Gazebo](https://github.com/cesarhcq/abrobot/blob/master/abrobot_description/urdf/robot2.gazebo). If you need more information about [Arlo Description Platform](https://github.com/chrisl8/ArloBot/tree/new-serial-interface/src/arlobot/arlobot_description), visit the [Arlo Bot](https://github.com/chrisl8/ArloBot).
 
  If you need to add more sensors in your Robot, follow this great tutorial provided by: [Gazebo Sensors](http://gazebosim.org/tutorials/?tut=add_laser). Please, do not forget to add the .dae or .stl extension of the sensors.
 
