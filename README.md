@@ -26,8 +26,34 @@ The laser is configured with a static IP: 192.168.0.1. Its not recommended to us
   
   * Click in the 3 vertical points and select "connect"
 
-:penguin: Linux Machine Configuring.
+## :penguin: Linux Machine Configuring.
 
+* After configuration of the LiDAR, open a terminal and make this:
+
+```
+cd ~/wuvc_ws/src/ 
+
+git clone https://github.com/SICKAG/sick_scan.git
+
+cd ~/wuvc_ws/
+
+catkin_make
+
+source devel/setup.bash
+```
+
+In order to test the Sick LiDAR try this:
+```
+roslaunch wuvc_sensors sick_tim571.launch
+```
+
+If the ```launch file``` is not working, you'll need to configure manually via DHCP. Open a network box and click in "edit connections". Select Ethernet connection and edit it. Select IPV4 settings and complete the address, netmask and gateway.
+
+* Address: 192.168.1.1
+* Netmask: 255.255.255.0
+* Gateway: 0.0.0.0
+
+Done!
 
 
 
