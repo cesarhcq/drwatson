@@ -19,8 +19,16 @@ Version | ROS Distro | Operating System
 The laser is configured with a static IP: 192.168.0.1. Its not recommended to use the same IP. Then, you need to configure a new IP using [SOPAS Engineering Tool](https://www.sick.com/br/pt/sopas-engineering-tool-2020/p/p367244). Follow the instructions below to configure as correct way:
 
 * Download SOPAS with Windows 7 or superior;
+  
   * After installation, connect the Sick 571 LiDAR as recommended in the manufacturer manual. Plug the Ethernet cable on the PC and voltage supply (9-28VDC).
-* Now, open the SOPAS software and find a new devices. Probably you'll find LiDAR TiM 571
+
+* Now, open the SOPAS software and find a new devices. Probably you'll find LiDAR TiM 571. Select "change IP" and you can modify to any IP adress as desired. 
+  
+  * Click in the 3 vertical points and select "connect"
+
+:penguin: Linux Machine Configuring.
+
+
 
 
 ### The robot model is based on Arlo Platform with Differential drive. (TODO) 
