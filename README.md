@@ -17,9 +17,9 @@ Version | ROS Distro | Operating System
 
  W-UVC Robot is based on Package the contains a C++ parser for the Unified Robot Description Format (URDF), which is an XML format for representing a robot model. The code API of the parser has been through our review process and will remain backwards compatible in future releases. (See more in: [URDF](http://wiki.ros.org/urdf)).
 
-### The robot model is based on Arlo Platform with Differential drive. 
+### The robot model is based on Arlo Platform with Differential drive. (TODO) 
 
- All components were created in the XML file with joints, collisions, pose, inertia and visual. The script file can be found here: [GuntherBOT description](https://github.com/cesarhcq/abrobot/tree/cesar-working/abrobot_description). The files used in the WUVC-Bot simulation are: [Robot Xacro](https://github.com/cesarhcq/abrobot/blob/cesar-working/abrobot_description/urdf/robot2.xacro) and [Robot Gazebo](https://github.com/cesarhcq/abrobot/blob/master/abrobot_description/urdf/robot2.gazebo). If you need more information about [Arlo Description Platform](https://github.com/chrisl8/ArloBot/tree/new-serial-interface/src/arlobot/arlobot_description), visit the [Arlo Bot](https://github.com/chrisl8/ArloBot).
+
 
  If you need to add more sensors in your Robot, follow this great tutorial provided by: [Gazebo Sensors](http://gazebosim.org/tutorials/?tut=add_laser). Please, do not forget to add the .dae or .stl extension of the sensors.
 
@@ -28,26 +28,26 @@ Version | ROS Distro | Operating System
 Create a simple ROS Workspace - if you don't have yet. Following the installation instructions to install in your Notebook.
 
 ```
-mkdir -p ~/guntherBot_ws/src && cd ~/guntherBot_ws
+mkdir -p ~/wuvc_ws/src && cd ~/wuvc_ws
 
 catkin init
 
-cd ~/guntherBot_ws/src/ 
+cd ~/wuvc_ws/src/ 
 
-git clone git@github.com:ActaVisio/GuntherBot.git
+git clone https://github.com/cesarhcq/drwatson.git
 
 git clone git@github.com:ros-drivers/joystick_drivers.git
 
-cd ~/guntherBot_ws/
+cd ~/wuvc_ws/
 
 catkin_make
 
 ```
 
-## Start a simple simulation of the GuntherBOT mobile Robot.
+## Start a simple simulation of the WUVC mobile Robot.
 
 ```
-cd ~/guntherBot_ws/
+cd ~/wuvc_ws/
 
 source devel/setup.bash
 ```
@@ -58,13 +58,9 @@ source devel/setup.bash
 roslaunch robot_gazebo first.launch
 ```
 
-![guntherBOT](/images/guntherBOT1.jpg)
-
 ```
 roslaunch robot_gazebo second.launch
 ```
-
-![guntherBOT](/images/guntherBOT2.jpg)
 
 2. Teleoperating the robot GuntherBot
 
@@ -73,9 +69,6 @@ Onpen another terminal
 ```
 roslaunch robot_description robot_description.launch
 ```
-
-![guntherBOT](/images/guntherBOT_rviz.jpg)
-
 
 Or close all terminals and open just one terminal to run everything with this command
 
@@ -94,9 +87,9 @@ The `robot_gazebo` package is responsible for setting and choosing the world and
 The `robot_description` package contains the robot assembly configuration files. Within the `meshs` and` urdf` folders it is possible to configure and create the robot model and its main components such as the camera.
 
 ```
-vim ~/guntherBot_ws/src/GuntherBot/robot_description/launch/teleop-guntherbot.launch
+vim ~/wuvc_ws/src/drwatson/robot_description/launch/teleop-guntherbot.launch
 
-subl ~/guntherBot_ws/src/GuntherBot/robot_description/launch/teleop-guntherbot.launch
+subl ~/wuvc_ws/src/drwatson/robot_description/launch/teleop-guntherbot.launch
 ```
 
 ```
