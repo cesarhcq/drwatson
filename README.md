@@ -11,11 +11,17 @@ Version | ROS Distro | Operating System
 - [x] ROS Kinetic-devel: [ROS](http://wiki.ros.org/kinetic/Installation/Ubuntu).
 - [x] ROS Joystick Drivers Stack: [Joystick Driver](https://github.com/ros-drivers/joystick_drivers).
 - [x] Rosserial: [Package for Arduino - Real Robot](http://wiki.ros.org/rosserial).
+- [x] Sick Scan: [Sick Scan Repository](http://wiki.ros.org/sick_scan).
 
 
-### The first step
+### Install Lidar Sick TiM 571
 
- W-UVC Robot is based on Package the contains a C++ parser for the Unified Robot Description Format (URDF), which is an XML format for representing a robot model. The code API of the parser has been through our review process and will remain backwards compatible in future releases. (See more in: [URDF](http://wiki.ros.org/urdf)).
+The laser is configured with a static IP: 192.168.0.1. Its not recommended to use the same IP. Then, you need to configure a new IP using [SOPAS Engineering Tool](https://www.sick.com/br/pt/sopas-engineering-tool-2020/p/p367244). Follow the instructions below to configure as correct way:
+
+* Download SOPAS with Windows 7 or superior;
+  * After installation, connect the Sick 571 LiDAR as recommended in the manufacturer manual. Plug the Ethernet cable on the PC and voltage supply (9-28VDC).
+*
+
 
 ### The robot model is based on Arlo Platform with Differential drive. (TODO) 
 
