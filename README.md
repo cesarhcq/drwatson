@@ -20,7 +20,7 @@ The laser is configured with a static IP: 192.168.0.1. Its not recommended to us
 
 * Download SOPAS with Windows 7 or superior;
   * After installation, connect the Sick 571 LiDAR as recommended in the manufacturer manual. Plug the Ethernet cable on the PC and voltage supply (9-28VDC).
-*
+* Now, open the SOPAS software and find a new devices. Probably you'll find LiDAR TiM 571
 
 
 ### The robot model is based on Arlo Platform with Differential drive. (TODO) 
