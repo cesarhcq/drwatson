@@ -14,7 +14,7 @@ Version | ROS Distro | Operating System
 - [x] Sick Scan: [Sick Scan Repository](http://wiki.ros.org/sick_scan).
 
 
-### Install Lidar Sick TiM 571
+## Install Lidar Sick TiM 571
 
 The laser is configured with a static IP: 192.168.0.1. Its not recommended to use the same IP. Then, you need to configure a new IP using [SOPAS Engineering Tool](https://www.sick.com/br/pt/sopas-engineering-tool-2020/p/p367244). Follow the instructions below to configure as correct way:
 
@@ -42,6 +42,8 @@ catkin_make
 source devel/setup.bash
 ```
 
+* Modify the ```sick_tim_5xx.launch file``` and set the ```arg name="hostname" default="put here the IP configured in you sick laser provided by SOPAS"```.
+
 In order to test the Sick LiDAR try this:
 ```
 roslaunch wuvc_sensors sick_tim571.launch
@@ -53,7 +55,7 @@ If the ```launch file``` is not working, you'll need to configure manually via D
 * Netmask: 255.255.255.0
 * Gateway: 0.0.0.0
 
-Done!
+Done! Try to run the ```launch file``` again.
 
 
 
