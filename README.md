@@ -59,7 +59,7 @@ Done! Try to run the ```launch file``` again.
 
 ## Encoder Connections
 
-The encoder model which we are using is [Encoder model](https://www.filipeflop.com/produto/sensor-de-velocidade-encoder/)
+The encoder model which we are using is [Encoder model](https://www.filipeflop.com/produto/sensor-de-velocidade-encoder/). We define this encoder as interrupt input (20, 21)
 
 
 
