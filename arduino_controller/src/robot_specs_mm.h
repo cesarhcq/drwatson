@@ -33,11 +33,11 @@
 #define CCW   2
 #define CS_THRESHOLD 15   // Definition of safety current (Check: "1.3 Monster Shield Example").
 
-//MOTOR 1
+//MOTOR 1 (Right)
 #define MOTOR_A1_PIN 7
 #define MOTOR_B1_PIN 8
 
-//MOTOR 2
+//MOTOR 2 (Left)
 #define MOTOR_A2_PIN 4
 #define MOTOR_B2_PIN 9
 
@@ -79,17 +79,17 @@ void motorGo(uint8_t motor, float pwm)
   digitalWrite(EN_PIN_1, HIGH);
   digitalWrite(EN_PIN_2, HIGH);
 
-  if(motor == MOTOR_LEFT_1)
+  if(motor == MOTOR_LEFT_1) // 0
   {
     if(direct == CW) //Forward CW
     {
-      digitalWrite(MOTOR_A1_PIN, LOW); 
-      digitalWrite(MOTOR_B1_PIN, HIGH);
+      digitalWrite(MOTOR_A1_PIN, LOW);//7
+      digitalWrite(MOTOR_B1_PIN, HIGH);//8
     }
     else if(direct == CCW) //Reverse CCW
     {
-      digitalWrite(MOTOR_A1_PIN, HIGH);
-      digitalWrite(MOTOR_B1_PIN, LOW);      
+      digitalWrite(MOTOR_A1_PIN, HIGH);//7
+      digitalWrite(MOTOR_B1_PIN, LOW);//8  
     }
     else //BRAKE
     {
@@ -100,17 +100,17 @@ void motorGo(uint8_t motor, float pwm)
     analogWrite(PWM_MOTOR_LEFT_PIN, abs(pwm)); 
   }
 
-  else if(motor == MOTOR_RIGHT_2)
+  else if(motor == MOTOR_RIGHT_2) // 1
   {
     if(direct == CW) //Forward CW
     {
-      digitalWrite(MOTOR_A2_PIN, LOW);
-      digitalWrite(MOTOR_B2_PIN, HIGH);
+      digitalWrite(MOTOR_A2_PIN, LOW); //4
+      digitalWrite(MOTOR_B2_PIN, HIGH); //9
     }
     else if(direct == CCW) //Reverse CCW
     {
-      digitalWrite(MOTOR_A2_PIN, HIGH);
-      digitalWrite(MOTOR_B2_PIN, LOW);      
+      digitalWrite(MOTOR_A2_PIN, HIGH); //4
+      digitalWrite(MOTOR_B2_PIN, LOW);  //9
     }
     else
     {

@@ -15,14 +15,14 @@ See the "map_update_distance_thresh" it means that the close obstacles can be ig
 <!--     <include file="$(find rplidar_ros)/launch/rplidar.launch" /> -->
 
     <!--Sick tim571-->
-    <include file="$(find sick_scan)/launch/sick_tim_5xx.launch" />
-	
+<!--     <include file="$(find sick_scan)/launch/sick_tim_5xx.launch" />
+ -->	
 	<!-- Gyro from MPU9250 -->
 <!-- 	<include file="$(find i2c_imu)/launch/i2c_imu_auto.launch" />
  -->
     <!--Arduino Low-Controller -->
     <node pkg="rosserial_python" type="serial_node.py" name="arduino_controller" output= "screen">
-        <param name="port" value="/dev/ttyACM0"/>  
+        <param name="port" value="/dev/ttyACM1"/>  
         <param name="baud" value="57600"/>
     </node>
 
