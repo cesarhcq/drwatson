@@ -57,6 +57,10 @@ If the ```launch file``` is not working, you'll need to configure manually via D
 
 Done! Try to run the ```launch file``` again.
 
+## Encoder Connections
+
+The encoder model which we are using is [Encoder model](https://www.filipeflop.com/produto/sensor-de-velocidade-encoder/). We define this encoder as interrupt input (20, 21)
+
 
 
 ### The robot model is based on Arlo Platform with Differential drive. (TODO) 
