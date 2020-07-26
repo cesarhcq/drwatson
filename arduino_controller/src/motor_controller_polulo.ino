@@ -15,6 +15,8 @@
 //   Arduino PIN 6        ->  PWM_MOTOR_RIGHT
 
 #define LOOPTIME 200   // PID loop time(ms)
+#define MOTOR_LEFT_1 0          // Motor Left PID Controll
+#define MOTOR_RIGHT_2 1         // Motor Right PID Controll
 
 #include "robot_specs_polulo.h"
 #include <DualVNH5019MotorShield.h>
@@ -96,7 +98,7 @@ ros::Publisher pub_pid("/vel_pid", &vel_pid_msg);
 
 void setup()
 {
-  Serial.begin(115200); // MEGA_USB = 0 (RX), 1 (TX) -> RASPBERRY (USB)
+  Serial.begin(57600); // MEGA_USB = 0 (RX), 1 (TX) -> RASPBERRY (USB)
   
   delay(1000);
 
@@ -146,14 +148,14 @@ void loop()
   if(time-lastMilli>= LOOPTIME){
     getMotorData(time-lastMilli);
 
-    float sinal1 = (vel_req1*400)/0.8;
-    float sinal2 = (vel_req2*400)/0.8;
+    // float sinal1 = (vel_req1*400)/0.8;
+    // float sinal2 = (vel_req2*400)/0.8;
 
-    PWM_val1 = constrain(sinal1, -400, 400);
-    PWM_val2 = constrain(sinal2, -400, 400);
+    // PWM_val1 = constrain(sinal1, -400, 400);
+    // PWM_val2 = constrain(sinal2, -400, 400);
 
-    // PWM_val1 = updatePid(MOTOR_LEFT_1, vel_req1, vel_act1);
-    // PWM_val2 = updatePid(MOTOR_RIGHT_2, vel_req2, vel_act2);
+    PWM_val1 = updatePid(0, vel_req1, vel_act1);
+    PWM_val2 = updatePid(1, vel_req2, vel_act2);
 
     //motorGo(MOTOR_LEFT_1, 0);
     //motorGo(MOTOR_RIGHT_2, 0);
@@ -251,27 +253,27 @@ double filterRight(double vel_right)  {
 
 // PID correction - Function
 int updatePid(int idMotor, double referenceValue, double encoderValue) {
-  float Kp = 1.8;  //2.0
-  float Kd = 0.1;  //0.1
+  float Kp = 0.8;  //2.0
   float Ki = 0.5;  //0.5
+  float Kd = 0.1;  //0.1
+
   double pidTerm = 0;
   double new_pwm = 0;
   double new_cmd = 0;
 
-  pid_right = 0;
-  pid_left = 0;
-
   //erro = (kinetmatic - encoder) MetersreferenceSinal_pwm per Second
   double error = (referenceValue - encoderValue);
 
-  if(idMotor == MOTOR_LEFT_1) { //left
-    pidTerm = Kp*error;// + Ki*int_error1; //+ Kd*(error-last_error1);
+  if(idMotor == 0) { //left
+    pid_left = 0;
+    pidTerm = Kp*error + Ki*int_error1 + Kd*(error-last_error1);
     int_error1 += error;
     last_error1 = error;
     pid_left = pidTerm;
   }
-  else if(idMotor == MOTOR_RIGHT_2){ //right
-    pidTerm = Kp*error; // + Ki*int_error2; //+ Kd*(error-last_error2);
+  else if(idMotor == 1){ //right
+    pid_right = 0;
+    pidTerm = Kp*error + Ki*int_error2 + Kd*(error-last_error2);
     int_error2 += error;
     last_error2 = error;
     pid_right = pidTerm;

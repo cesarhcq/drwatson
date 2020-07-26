@@ -11,7 +11,4 @@
 #define R 0.0775 // wheel radius m
 #define PI 3.1415926
 
-#define MOTOR_LEFT_1 0          // Motor Left PID Controll
-#define MOTOR_RIGHT_2 1         // Motor Right PID Controll
-
 #endif
