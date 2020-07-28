@@ -18,6 +18,11 @@
 #define MOTOR_LEFT_1 0          // Motor Left PID Controll
 #define MOTOR_RIGHT_2 1         // Motor Right PID Controll
 
+#define Kp 0.8
+#define Ki 0.5
+#define Kd 0.1
+
+
 #include "robot_specs_polulo.h"
 #include <DualVNH5019MotorShield.h>
 #include <ArduinoHardware.h>
@@ -30,8 +35,8 @@
 
 DualVNH5019MotorShield md;
 
-double pid_right = 0;
-double pid_left = 0;
+double pid_right;
+double pid_left;
 
 char encoder[] = "/encoder";
 
@@ -253,10 +258,9 @@ double filterRight(double vel_right)  {
 
 // PID correction - Function
 int updatePid(int idMotor, double referenceValue, double encoderValue) {
-  float Kp = 0.8;  //2.0
-  float Ki = 0.5;  //0.5
-  float Kd = 0.1;  //0.1
-
+  // float Kp = 0.8;  //2.0
+  // float Ki = 0.5;  //0.5
+  // float Kd = 0.1;  //0.1
   double pidTerm = 0;
   double new_pwm = 0;
   double new_cmd = 0;
@@ -264,15 +268,15 @@ int updatePid(int idMotor, double referenceValue, double encoderValue) {
   //erro = (kinetmatic - encoder) MetersreferenceSinal_pwm per Second
   double error = (referenceValue - encoderValue);
 
-  if(idMotor == 0) { //left
-    pid_left = 0;
+  if(idMotor == MOTOR_LEFT_1) { //left
+    pid_left=0;
     pidTerm = Kp*error + Ki*int_error1 + Kd*(error-last_error1);
     int_error1 += error;
     last_error1 = error;
     pid_left = pidTerm;
   }
-  else if(idMotor == 1){ //right
-    pid_right = 0;
+  else if(idMotor == MOTOR_RIGHT_2){ //right
+    pid_right=0;
     pidTerm = Kp*error + Ki*int_error2 + Kd*(error-last_error2);
     int_error2 += error;
     last_error2 = error;
