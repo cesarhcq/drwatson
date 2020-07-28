@@ -2,9 +2,11 @@
 
 W-UVC Robot is an autonomous robotic platform developed by [PUC Campinas](http://www.puc-campinas.edu.br) for classroom disinfection environments. W-UVC Robot is a differential drive mobile platform to perform different tasks in an indoor environments. W-UVC Robot is based on Robot Operating System (ROS) - see more in [ROS Wiki](https://www.ros.org/), Arduino Mega and Raspberry Pi 4.
 
-Version | ROS Distro | Operating System
+## ROS Buildfarm Development Branches
+
+WUVC Package | Kinetic Devel | Melodic Devel
 ------------ | ------------- | ------------
-1.0 | Kinetic Kame | Ubuntu 16.04 LTS (Xenial)
+drwatson_ros | [![Build Status](https://travis-ci.org/cesarhcq/drwatson.svg?branch=cesar-working)](https://travis-ci.org/github/cesarhcq/drwatson) | Ubuntu 16.04 LTS (Xenial)
 
 ## Install dependencies and follow the installation instructions.
 
