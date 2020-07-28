@@ -59,7 +59,11 @@ Done! Try to run the ```launch file``` again.
 
 ## Encoder Connections
 
-The encoder model which we are using is [Encoder model](https://www.filipeflop.com/produto/sensor-de-velocidade-encoder/). We define this encoder as interrupt input (20, 21)
+The encoder model which we are using is [Encoder model](https://www.filipeflop.com/produto/sensor-de-velocidade-encoder/). We define this encoder as interrupt input (20, 21). 
+
+## Motor controller - VNH5019 pololu
+
+The motor controller used in this project is the [Pololu Dual VNH5019](https://www.pololu.com/product/2507). It is necessary to install the libraries for Arduino board. You can make the download in the [Pololu Github](https://github.com/pololu/dual-vnh5019-motor-shield). In order to unzip the library you need to find the ```skecthbook``` folder, probably in ```$ /home/user/sketchbook/libraries```. Now, restart or open the Arduino IDE to test the example code provided by ```Demo.ino```.
 
 
 
