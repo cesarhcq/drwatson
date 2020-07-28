@@ -6,7 +6,7 @@ W-UVC Robot is an autonomous robotic platform developed by [PUC Campinas](http:/
 
 WUVC Package | Kinetic Devel | Melodic Devel
 ------------ | ------------- | ------------
-drwatson_ros | [![Build Status](https://travis-ci.org/cesarhcq/drwatson.svg?branch=cesar-working)](https://travis-ci.org/github/cesarhcq/drwatson) | Ubuntu 16.04 LTS (Xenial)
+drwatson_ros | [![Build Status](https://travis-ci.org/cesarhcq/drwatson.svg?branch=cesar-working)](https://travis-ci.org/github/cesarhcq/drwatson) | [![Build Status](https://travis-ci.org/cesarhcq/drwatson.svg?branch=cesar-working)](https://travis-ci.org/github/cesarhcq/drwatson)
 
 ## Install dependencies and follow the installation instructions.
 
