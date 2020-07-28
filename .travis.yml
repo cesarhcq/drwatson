@@ -26,6 +26,8 @@
 #
 # Author: Felix Duvallet <felixd@gmail.com>
 
+# This travis was adapted from Felix Duvallet and modified by César Quiroz <cesar.quiroz@puc-campinas.edu.br>
+
 # NOTE: The build lifecycle on Travis.ci is something like this:
 #    before_install
 #    install
