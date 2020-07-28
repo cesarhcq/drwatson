@@ -15,7 +15,11 @@ See the "map_update_distance_thresh" it means that the close obstacles can be ig
 <!--     <include file="$(find rplidar_ros)/launch/rplidar.launch" /> -->
 
     <!--Sick tim571-->
+<<<<<<< HEAD
 <!--     <include file="$(find sick_scan)/launch/sick_tim_5xx.launch"/> -->
+=======
+    <include file="$(find sick_scan)/launch/sick_tim_5xx.launch" />
+>>>>>>> master
 	
 	<!-- Gyro from MPU9250 -->
 <!-- 	<include file="$(find i2c_imu)/launch/i2c_imu_auto.launch" />
