@@ -27,11 +27,11 @@
 #define CMD_VEL_TIMEOUT 1000 // milliseconds
 #define MAX_VEL 0.61 // meter/second
 #define MAX_INT 200.0 // limite da integral
-#define Kp 0.8
-#define Ki 0.5
+#define Kp 1.8
+#define Ki 0.8
 #define Kd 0.1
 #define PWM_RESOLUTION 400
-#define LOOPTIME 200   // Tempo do controlador [PID loop time(ms)]
+#define LOOPTIME 100   // Tempo do controlador [PID loop time(ms)]
 #define MOTOR_LEFT_1 0          // Motor Left PID Control
 #define MOTOR_RIGHT_2 1         // Motor Right PID Control
 #define time_to_sec 0.001 // tempo em segundos
@@ -272,7 +272,7 @@ int updatePid(int idMotor, double referenceValue, double encoderValue) {
   double error = (referenceValue - encoderValue);
 
   if(idMotor == MOTOR_LEFT_1) { //left
-    pidTerm = Kp*error; //+ Ki*int_error1 + Kd*(last_error1-error);
+    pidTerm = Kp*error; + Ki*int_error1; // + Kd*(last_error1-error);
     int_error1 += error*dt;
     last_error1 = error;
     pid_left = pidTerm;
@@ -280,7 +280,7 @@ int updatePid(int idMotor, double referenceValue, double encoderValue) {
   }
   else if(idMotor == MOTOR_RIGHT_2){ //right
 
-    pidTerm = Kp*error; //+ Ki*int_error2 + Kd*(last_error2 - error);
+    pidTerm = Kp*error; + Ki*int_error2; //+ Kd*(last_error2 - error);
     int_error2 += error*dt;
     last_error2 = error;
     pid_right = pidTerm;
