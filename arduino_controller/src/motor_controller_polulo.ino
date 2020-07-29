@@ -14,15 +14,6 @@
 //   Arduino PIN 5        ->  PWM_MOTOR_LEFT
 //   Arduino PIN 6        ->  PWM_MOTOR_RIGHT
 
-#define LOOPTIME 200   // PID loop time(ms)
-#define MOTOR_LEFT_1 0          // Motor Left PID Controll
-#define MOTOR_RIGHT_2 1         // Motor Right PID Controll
-
-#define Kp 0.8
-#define Ki 0.5
-#define Kd 0.1
-
-
 #include "robot_specs_polulo.h"
 #include <DualVNH5019MotorShield.h>
 #include <ArduinoHardware.h>
@@ -33,6 +24,19 @@
 #include <geometry_msgs/Vector3Stamped.h>
 #include <sensor_msgs/Range.h>
 
+#define CMD_VEL_TIMEOUT 1000 // milliseconds
+#define MAX_VEL 0.61 // meter/second
+#define MAX_INT 200.0 // limite da integral
+#define Kp 0.8
+#define Ki 0.5
+#define Kd 0.1
+#define PWM_RESOLUTION 400
+#define LOOPTIME 200   // Tempo do controlador [PID loop time(ms)]
+#define MOTOR_LEFT_1 0          // Motor Left PID Control
+#define MOTOR_RIGHT_2 1         // Motor Right PID Control
+#define time_to_sec 0.001 // tempo em segundos
+
+
 DualVNH5019MotorShield md;
 
 double pid_right;
@@ -40,6 +44,7 @@ double pid_left;
 
 char encoder[] = "/encoder";
 
+unsigned long time = 0;
 unsigned long lastMilli = 0;       // loop timing
 double vel_req1;
 double vel_req2;
@@ -153,17 +158,15 @@ void loop()
   if(time-lastMilli>= LOOPTIME){
     getMotorData(time-lastMilli);
 
-    // float sinal1 = (vel_req1*400)/0.8;
-    // float sinal2 = (vel_req2*400)/0.8;
+    // float sinal1 = (vel_req1*PWM_RESOLUTION)/MAX_VEL;
+    // float sinal2 = (vel_req2*PWM_RESOLUTION)/MAX_VEL;
 
-    // PWM_val1 = constrain(sinal1, -400, 400);
-    // PWM_val2 = constrain(sinal2, -400, 400);
+    // PWM_val1 = constrain(sinal1, -PWM_RESOLUTION, PWM_RESOLUTION);
+    // PWM_val2 = constrain(sinal2, -PWM_RESOLUTION, PWM_RESOLUTION);
 
-    PWM_val1 = updatePid(0, vel_req1, vel_act1);
-    PWM_val2 = updatePid(1, vel_req2, vel_act2);
+    PWM_val1 = updatePid(MOTOR_LEFT_1, vel_req1, vel_act1);
+    PWM_val2 = updatePid(MOTOR_RIGHT_2, vel_req2, vel_act2);
 
-    //motorGo(MOTOR_LEFT_1, 0);
-    //motorGo(MOTOR_RIGHT_2, 0);
     md.setM1Speed(PWM_val1);
     md.setM2Speed(PWM_val2);
 
@@ -201,7 +204,7 @@ void publishDebugPid(unsigned long time) {
 
 // Get the motor velocity with Encoder - Function
 void getMotorData(unsigned long time)  {
-  double dt = time * 0.001; // time to seg
+  double dt = time * time_to_sec; // time to seg
   double w1 = (ENCODER_PULSE_LEFT * PI / 180);
   double w2 = (ENCODER_PULSE_RIGH * PI / 180);
 
@@ -240,7 +243,7 @@ double filterLeft(double vel_left)  {
 
 double filterRight(double vel_right)  {
 
-  //Mean of velocity in 5(ENCODER_FILTER) interations if encoder good
+  //Mean of velocity in 5(ENCODER_FILTER) intlast_error1_erations if encoder good
   cont_Right++;
 
   Sum_vel_Right = Sum_vel_Right + vel_right;
@@ -258,39 +261,40 @@ double filterRight(double vel_right)  {
 
 // PID correction - Function
 int updatePid(int idMotor, double referenceValue, double encoderValue) {
-  // float Kp = 0.8;  //2.0
-  // float Ki = 0.5;  //0.5
-  // float Kd = 0.1;  //0.1
+
   double pidTerm = 0;
   double new_pwm = 0;
   double new_cmd = 0;
+
+  double dt = time - lastMilli;
 
   //erro = (kinetmatic - encoder) MetersreferenceSinal_pwm per Second
   double error = (referenceValue - encoderValue);
 
   if(idMotor == MOTOR_LEFT_1) { //left
-    pid_left=0;
-    pidTerm = Kp*error + Ki*int_error1 + Kd*(error-last_error1);
-    int_error1 += error;
+    pidTerm = Kp*error; //+ Ki*int_error1 + Kd*(last_error1-error);
+    int_error1 += error*dt;
     last_error1 = error;
     pid_left = pidTerm;
+    int_error1 = constrain(int_error1, -MAX_INT, MAX_INT);
   }
   else if(idMotor == MOTOR_RIGHT_2){ //right
-    pid_right=0;
-    pidTerm = Kp*error + Ki*int_error2 + Kd*(error-last_error2);
-    int_error2 += error;
+
+    pidTerm = Kp*error; //+ Ki*int_error2 + Kd*(last_error2 - error);
+    int_error2 += error*dt;
     last_error2 = error;
     pid_right = pidTerm;
+    int_error2 = constrain(int_error2, -MAX_INT, MAX_INT);
   }else{
     pidTerm = 0;
   }
 
   // Conversion: m/s to PWM
-  double referenceSinal_pwm = (pidTerm*400)/0.8;
+  double referenceSinal_pwm = (pidTerm*PWM_RESOLUTION)/MAX_VEL;
 
   // Syntax: constrain(sinal, min, max)
   //new_pwm = constrain( referenceSinal_pwm, -((constrainMotor*255)/(0.8)), ((constrainMotor*255)/(0.8)) );
-  new_cmd = constrain(referenceSinal_pwm,-400, 400);
+  new_cmd = constrain(referenceSinal_pwm,-PWM_RESOLUTION, PWM_RESOLUTION);
 
 
   return int(new_cmd);
