@@ -31,8 +31,8 @@ See the "map_update_distance_thresh" it means that the close obstacles can be ig
     </node>
 
     <!--Gyro from smartphone-->
-    <node name="imu_node" pkg="abrobot_control" type="gyro-smartphone.py" output="screen">
-       <param name="host" value="192.168.42.225" /> <!--Need to change everytime when reconnect the device-->
+    <node name="imu_node" pkg="arduino_controller" type="gyro-smartphone.py" output="screen">
+       <param name="host" value="192.168.42.72" /> <!--Need to change everytime when reconnect the device-->
        <param name="num_callibration_itrs" value="1" />
         <param name="debug" value="false" />
     </node>
@@ -56,8 +56,8 @@ See the "map_update_distance_thresh" it means that the close obstacles can be ig
 
     <!--<node name="rviz" pkg="rviz" type="rviz" args="-d $(find base_controller)/rviz/rviz_laser_encoder.rviz" /> -->
        <arg name="tf_map_scanmatch_transform_frame_name" default="scanmatcher_frame"/>
-  <arg name="base_frame" default="base_link"/>
-  <arg name="odom_frame" default="base_link"/>
+  <arg name="base_frame" default="base_link"/> 
+  <arg name="odom_frame" default="odom"/> <!-- base_link -->
   <arg name="map_frame" default="map"/>
 
   <arg name="pub_map_odom_transform" default="false"/>
