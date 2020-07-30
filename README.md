@@ -8,13 +8,46 @@ WUVC Package | Kinetic Devel | Melodic Devel
 ------------ | ------------- | ------------
 drwatson_ros | [![Build Status](https://travis-ci.org/cesarhcq/drwatson.svg?branch=cesar-working)](https://travis-ci.org/github/cesarhcq/drwatson) | [![Build Status](https://travis-ci.org/cesarhcq/drwatson.svg?branch=cesar-working)](https://travis-ci.org/github/cesarhcq/drwatson)
 
-## Install dependencies and follow the installation instructions.
+## Install dependencies
 
 - [x] ROS Kinetic-devel: [ROS](http://wiki.ros.org/kinetic/Installation/Ubuntu).
 - [x] ROS Joystick Drivers Stack: [Joystick Driver](https://github.com/ros-drivers/joystick_drivers).
 - [x] Rosserial: [Package for Arduino - Real Robot](http://wiki.ros.org/rosserial).
 - [x] Sick Scan: [Sick Scan Repository](http://wiki.ros.org/sick_scan).
+- [x] ZR300 IntelRealSense: [Real Sense Repository](https://github.com/IntelRealSense/realsense_samples_ros).
+- [ ] Not testing yet ZR300 IntelRealSense: [Real Sense2 repository](https://github.com/IntelRealSense/realsense-ros).
 
+## Installation instructions for ZR300 camera
+```
+# Install Intel RealSense SDK for Linux
+sudo apt-key adv --keyserver keys.gnupg.net --recv-key D6FB2970 
+sudo sh -c 'echo "deb http://realsense-alm-public.s3.amazonaws.com/apt-repo xenial main" > /etc/apt/sources.list.d/realsense-latest.list'
+sudo apt update 
+sudo apt install -y librealsense-object-recognition-dev librealsense-persontracking-dev librealsense-slam-dev libopencv-dev
+
+# Download and compile ROS wrappers for Intel RealSense SDK for Linux
+mkdir -p yourworkspace_ws/src
+cd yourworkspace_ws/src/
+catkin_init_workspace 
+git clone https://github.com/IntelRealSense/realsense_samples_ros
+cd ..
+catkin_make
+source devel/setup.bash
+```
+* Probably problems in ```catkin_make```:
+  * ```[ 92%] Linking CXX executable /home/salup/catkin_ws/devel/lib/realsense_ros_person/realsense_ros_person_sample
+[ 98%] Built target realsense_ros_person```
+  * To solve this issue, go to ```realsense_ros_person/CMakeLists.txt``` and add "find_package(OpenCV REQUIRED)"
+
+To initialize the camera, run:
+
+```
+# For ZRZ300 camera:
+roslaunch realsense_ros_camera demo_zr300_camera.launch
+```
+* Probably problems:
+  * ```hector_pose_estimation_nodelets.xml```
+    * To fix this issue: clone the repository in your workspace [hector localization](https://github.com/tu-darmstadt-ros-pkg/hector_localization)
 
 ## Install Lidar Sick TiM 571
 
