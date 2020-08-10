@@ -5,6 +5,7 @@
 #include <tf/transform_broadcaster.h>
 #include <nav_msgs/Odometry.h>
 #include <geometry_msgs/Twist.h>
+#include <geometry_msgs/Vector3.h>
 #include <geometry_msgs/Vector3Stamped.h>
 #include <sensor_msgs/Imu.h>
 
@@ -36,15 +37,26 @@ void handle_vel_encoder(const geometry_msgs::Vector3Stamped& encoder) {
 }
 
 // Gyro Function from Smartphone
-void handle_gyro( const sensor_msgs::Imu::ConstPtr& msg) {
-  gyro_x = msg->angular_velocity.x;
-  gyro_y = msg->angular_velocity.y;
-  gyro_z = msg->angular_velocity.z;
+void handle_gyro(const geometry_msgs::Vector3& msg) {
+  gyro_x = msg.x;
+  gyro_y = msg.y;
+  gyro_z = msg.z;
   //gyro_z = (msg->angular_velocity.z*PI)/180; // rad/s
-
-  //ROS_INFO("gyro_z: %lf ", gyro_z);
+  
+  ROS_INFO("gyro_z: %lf ", gyro_z);
   //ROS_INFO("Imu angular_velocity x: [%f], y: [%f], z: [%f]", msg->angular_velocity.x,msg->angular_velocity.y,msg->angular_velocity.z);
 }
+
+//
+// void handle_gyro( const sensor_msgs::Imu::ConstPtr& msg) {
+//   gyro_x = msg->angular_velocity.x;
+//   gyro_y = msg->angular_velocity.y;
+//   gyro_z = msg->angular_velocity.z;
+//   //gyro_z = (msg->angular_velocity.z*PI)/180; // rad/s
+  
+//   //ROS_INFO("gyro_z: %lf ", gyro_z);
+//   //ROS_INFO("Imu angular_velocity x: [%f], y: [%f], z: [%f]", msg->angular_velocity.x,msg->angular_velocity.y,msg->angular_velocity.z);
+// }
 
 // Robot Differential Drive Reverse Kinematic
 void reverse_kinematics(){
@@ -59,15 +71,17 @@ int main(int argc, char** argv){
 
   ros::NodeHandle nh;
   ros::NodeHandle nh_private_("~");
-  //ros::Subscriber gyro_sub = nh.subscribe("gyro", 50, handle_gyro);
+  ros::Subscriber gyro_sub = nh.subscribe("gyro", 50, handle_gyro);
   ros::Subscriber sub = nh.subscribe("/vel_encoder", 100, handle_vel_encoder);
-  ros::Subscriber gyro_sub = nh.subscribe("/imu/data", 50, handle_gyro);
+  //ros::Subscriber gyro_sub = nh.subscribe("/imu", 50, handle_gyro);
 
   ros::Publisher odom_pub = nh.advertise<nav_msgs::Odometry>("odom", 50);
 
   // Crete tf - base link and Odometry
   tf::TransformBroadcaster baselink_broadcaster;
   tf::TransformBroadcaster odom_broadcaster;
+
+  ROS_INFO("gyro----------------");
 
   double alpha = 0.0;
   bool use_imu = true;
