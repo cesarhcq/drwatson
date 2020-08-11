@@ -106,7 +106,7 @@ See the "map_update_distance_thresh" it means that the close obstacles can be ig
         <arg name="map_file_path" value="$(arg geotiff_map_file_path)"/>
     </include>
 
-    <!-- <node name="teleop" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen" launch-prefix="xterm -e"/> -->
+ <!--    <node name="teleop" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen" launch-prefix="xterm -e"/> -->
 
     <!-- Teleop -->
     <!--<node name="GuntherTeleop" pkg="arduino_controller" type="gunther_teleop.py" output="screen" launch-prefix="xterm -e"/> -->

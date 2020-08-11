@@ -5,13 +5,22 @@
   <!-- <master auto="start"/> -->
 
   <!--Laser rplidar-->
-  <include file="$(find rplidar_ros)/launch/rplidar.launch" />
+<!--   <include file="$(find rplidar_ros)/launch/rplidar.launch" /> -->
+
+    <include file="$(find sick_scan)/launch/sick_tim_5xx.launch" />
 
   <!-- Gyro from MPU9250 -->
-  <include file="$(find i2c_imu)/launch/i2c_imu_auto.launch" />
+<!--   <include file="$(find i2c_imu)/launch/i2c_imu_auto.launch" /> -->
+
+    <!--Gyro from smartphone-->
+    <node name="imu_node" pkg="arduino_controller" type="gyro-smartphone.py" output="screen">
+       <param name="host" value="192.168.42.72" /> <!--Need to change everytime when reconnect the device-->
+       <param name="num_callibration_itrs" value="1" />
+        <param name="debug" value="false" />
+    </node>
   
   <!-- Map server -->
-  <arg name="map_file" default="$(find autonomous_navigation)/maps/test5_map.yaml"/>
+  <arg name="map_file" default="$(find autonomous_navigation)/maps/house_map.yaml"/>
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
 
   <!--Arduino Low-Controller -->
@@ -70,7 +79,7 @@
     <param name="transform_tolerance" value="1.0"/>
     <param name="recovery_alpha_slow" value="0.001"/>
     <param name="recovery_alpha_fast" value="0.1"/>
-    <!--   <remap from="scan" to="$(arg scan_topic)"/> -->
+      <remap from="scan" to="scan"/>
   </node>
 
   <node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen">
@@ -86,12 +95,12 @@
     
     <rosparam file="$(find autonomous_navigation)/param/global_planner_params.yaml" command="load" />
     <rosparam file="$(find autonomous_navigation)/param/navfn_global_planner_params.yaml" command="load" />
-    <rosparam file="$(find autonomous_navigation)/param/dwa_local_planner_params.yaml" command="load" />
+<!--     <rosparam file="$(find autonomous_navigation)/param/dwa_local_planner_params.yaml" command="load" /> -->
   </node>
 
-  <!--<node name="rviz" pkg="rviz" type="rviz" args="-d $(find autonomous_navigation)/rviz/amcl_real_navigation.rviz" /> -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find autonomous_navigation)/rviz/amcl_real_navigation.rviz" /> 
 
-  <node name="teleop" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen" launch-prefix="xterm -e"/> 
+<!--   <node name="teleop" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen" launch-prefix="xterm -e"/>  -->
 
 
 </launch>
