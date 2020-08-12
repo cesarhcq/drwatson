@@ -41,9 +41,10 @@ void handle_gyro(const geometry_msgs::Vector3& msg) {
   gyro_x = msg.x;
   gyro_y = msg.y;
   gyro_z = msg.z;
+  //gyro_z = (msg.z*180)/PI; // deg/s
   //gyro_z = (msg->angular_velocity.z*PI)/180; // rad/s
   
-  ROS_INFO("gyro_z: %lf ", gyro_z);
+  //ROS_INFO("gyro_z: %lf ", gyro_z);
   //ROS_INFO("Imu angular_velocity x: [%f], y: [%f], z: [%f]", msg->angular_velocity.x,msg->angular_velocity.y,msg->angular_velocity.z);
 }
 
@@ -81,8 +82,6 @@ int main(int argc, char** argv){
   tf::TransformBroadcaster baselink_broadcaster;
   tf::TransformBroadcaster odom_broadcaster;
 
-  ROS_INFO("gyro----------------");
-
   double alpha = 0.0;
   bool use_imu = true;
   double vx = 0.0;
@@ -106,7 +105,7 @@ int main(int argc, char** argv){
     //set tf base_link and laser 
     baselink_broadcaster.sendTransform(
     tf::StampedTransform(
-      tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0.15, 0.0, 0.13)),
+      tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0.0, 0.0, 0.13)),
       ros::Time::now(),"base_link", "laser"));
 
     if(!init){
@@ -140,6 +139,8 @@ int main(int argc, char** argv){
       x += delta_x;
       y += delta_y;
       th += delta_th;
+
+      // ROS_INFO("DEBUG - dth: %lf ", delta_th);
 
       //ROS_INFO("DEBUG - x %lf - y %lf - dth: %lf - dt: %lf", x, y, delta_th, dt);
       //ROS_INFO("encoder_left %lf - encoder_right %lf - time: %lf", encoder_left, encoder_right, dt);
@@ -186,8 +187,8 @@ int main(int argc, char** argv){
       odom.twist.twist.angular.z = vth;
 
       //set the covariance encoder
-      odom.pose.covariance[0] = 5.0;
-      odom.pose.covariance[7] = 5.0;
+      odom.pose.covariance[0] = 5.0; //5.0
+      odom.pose.covariance[7] = 5.0; //5.0
       odom.pose.covariance[14] = 1e-3;
       odom.pose.covariance[21] = 0.1;
       odom.pose.covariance[28] = 0.1;
