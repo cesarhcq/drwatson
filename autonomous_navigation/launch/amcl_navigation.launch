@@ -6,7 +6,11 @@
 
   <!--Laser rplidar-->
 <!--   <include file="$(find rplidar_ros)/launch/rplidar.launch" /> -->
-    <include file="$(find sick_scan)/launch/sick_tim_5xx.launch" />
+    <include file="$(find sick_scan)/launch/sick_tim_5xx.launch"/>
+<!--       <arg name="hostname" default="192.168.1.221"/>
+      <arg name="frame_id" default="lidar_ray_link"/>
+      <arg name="scan_topic_name" default="/scan"/>
+    </include> -->
 
 
     <!--Gyro from smartphone-->
@@ -17,7 +21,7 @@
     </node>
   
   <!-- Map server -->
-  <arg name="map_file" default="$(find autonomous_navigation)/maps/alan_house_2.yaml"/>
+  <arg name="map_file" default="$(find autonomous_navigation)/maps/cesar_room_2.yaml"/>
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
 
   <!--Arduino Low-Controller -->
@@ -56,7 +60,7 @@
     <param name="laser_sigma_hit" value="0.5"/> <!-- 0.1 -->
     <param name="laser_lambda_short" value="0.1"/>
     <param name="laser_model_type" value="likelihood_field"/>
-    <!-- <param name="laser_model_type" value="beam"/> -->
+<!--     <param name="laser_model_type" value="beam"/> -->
     <param name="laser_likelihood_max_dist" value="8.0"/> <!-- 0.4 -->
     <param name="update_min_d" value="0.02"/> <!-- 2 cm-->
     <param name="update_min_a" value="0.02"/> <!-- 0.02 rad-->
@@ -70,7 +74,7 @@
 <!--     <param name="initial_cov_xx" value="2.1"/>
     <param name="initial_cov_yy" value="2.1"/>
     <param name="initial_cov_aa" value="2.1"/> -->
-    <remap from="/scan" to="/scan"/>
+<!--     <remap from="/scan" to="/scan"/> -->
     <param name="tf_broadcast" value="true"/>
     <param name="use_map_topic" value="true"/>
     <param name="first_map_only" value="false"/>

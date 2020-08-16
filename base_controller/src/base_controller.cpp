@@ -106,7 +106,7 @@ int main(int argc, char** argv){
     baselink_broadcaster.sendTransform(
     tf::StampedTransform(
       tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0.0, 0.0, 0.13)),
-      ros::Time::now(),"base_link", "laser"));
+      ros::Time::now(),"base_link", "laser_ray_link"));
 
     if(!init){
 

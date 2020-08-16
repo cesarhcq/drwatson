@@ -14,10 +14,6 @@ See the "map_update_distance_thresh" it means that the close obstacles can be ig
     <!--Laser rplidar-->
 <!--     <include file="$(find rplidar_ros)/launch/rplidar.launch" /> -->
 
-    <!--Sick tim571-->
-
-<!--     <include file="$(find sick_scan)/launch/sick_tim_5xx.launch"/> -->
-
     <include file="$(find sick_scan)/launch/sick_tim_5xx.launch" />
 
 	
@@ -43,17 +39,6 @@ See the "map_update_distance_thresh" it means that the close obstacles can be ig
         <param name="use_imu" value="true" />
     </node>
 
-    <!--Camera USB-->
-    <!-- <node name="usb_cam" pkg="usb_cam" type="usb_cam_node" output="screen" >
-        <param name="video_device" value="/dev/video0" />
-        <param name="image_width" value="640" />
-        <param name="image_height" value="480" />
-        <param name="pixel_format" value="yuyv" />
-        <param name="camera_frame_id" value="usb_cam" />
-        <param name="io_method" value="mmap"/>
-        <param name="camera_info_url" value="file://$(env HOME)/.ros/camera_info/head_camera.yaml"/>
-    </node> -->
-
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(find base_controller)/rviz/laser_test_hector_mapping.rviz" /> 
 
     <arg name="tf_map_scanmatch_transform_frame_name" default="scanmatcher_frame"/>
@@ -62,7 +47,7 @@ See the "map_update_distance_thresh" it means that the close obstacles can be ig
   <arg name="map_frame" default="map"/>
 
   <arg name="pub_map_odom_transform" default="true"/>
-  <arg name="pub_map_scanmatch_transform" default="false"/>
+  <arg name="pub_map_scanmatch_transform" default="true"/>
 
   <arg name="scan_subscriber_queue_size" default="5"/>
   <arg name="scan_topic" default="/scan"/>
@@ -72,30 +57,37 @@ See the "map_update_distance_thresh" it means that the close obstacles can be ig
 
     <node pkg="hector_mapping" type="hector_mapping" name="hector_height_mapping" output="screen" >
         
-        <!-- <param name="scan_topic" value="$(arg scan)" /> -->
         <param name="map_frame" value="$(arg map_frame)" />
         <param name="base_frame" value="$(arg base_frame)" />
         <param name="odom_frame" value="$(arg odom_frame)" />
 
+        <param name="use_tf_scan_transformation" value="true"/>
+        <param name="use_tf_pose_start_estimate" value="false"/>
+        <param name="pub_map_odom_transform" value="$(arg pub_map_odom_transform)"/>
+        <param name="map_with_known_poses" value="false"/>
+        <param name="map_resolution" value="0.05"/>
+        <param name="map_size" value="$(arg map_size)"/>
+        <param name="map_start_x" value="0.5"/>
+        <param name="map_start_y" value="0.5"/>
+        <param name="map_multi_res_levels" value="2"/>
+
+        <!-- Map parameters update -->
+        <param name="map_pub_period" value="0.5"/>
+        <param name="update_factor_free" value="0.4"/>
+        <param name="update_factor_occupied" value="0.9"/>
+        <param name="map_update_distance_thresh" value="0.05"/>
+        <param name="map_update_angle_thresh" value="0.1"/>
+        <param name="laser_z_min_value" value="-1.0"/>
+        <param name="laser_z_max_value" value="1.0"/>
+
         <param name="output_timing" value="false"/>
         <param name="advertise_map_service" value="true"/>
 
-        <param name="use_tf_scan_transformation" value="true"/>
-        <param name="use_tf_pose_start_estimate" value="false"/>
-        <param name="pub_map_odom_transform" value="true"/>
-        <param name="map_with_known_poses" value="false"/>
-
-        <param name="map_pub_period" value="0.5"/>
-        <param name="update_factor_free" value="0.45"/>
-
-        <param name="map_update_distance_thresh" value="0.02"/>
-        <param name="map_update_angle_thresh" value="0.1"/>
-
-        <param name="map_resolution" value="0.05"/>
-        <param name="map_size" value="1024"/>
-        <param name="map_start_x" value="0.5"/>
-        <param name="map_start_y" value="0.5"/>
+        <param name="scan_subscriber_queue_size" value="$(arg scan_subscriber_queue_size)"/>
         <param name="scan_topic" value="$(arg scan_topic)"/>
+        
+        <param name="pub_map_scanmatch_transform" value="$(arg scan_subscriber_queue_size)"/>
+        <param name="tf_map_scanmatch_transform_frame_name" value="$(arg tf_map_scanmatch_transform_frame_name)"/>
 
     </node>
 

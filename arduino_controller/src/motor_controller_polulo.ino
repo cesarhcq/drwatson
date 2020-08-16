@@ -27,8 +27,8 @@
 #define CMD_VEL_TIMEOUT 1000 // milliseconds
 #define MAX_VEL 0.61 // meter/second
 #define MAX_INT 200.0 // limite da integral
-#define Kp 1.8 //0.6 0.8 0.5 0.9 (last)
-#define Ki 0.00001 // 0.00001
+#define Kp 1.6 //0.6 0.8 0.5 0.9 (last) 1.8 (+-)
+#define Ki 0.000 // 0.00001
 #define Kd 0.0
 #define PWM_RESOLUTION 400
 #define LOOPTIME 100   // Tempo do controlador [PID loop time(ms)]
@@ -270,6 +270,7 @@ int updatePid(int idMotor, double referenceValue, double encoderValue) {
 
   //erro = (kinetmatic - encoder) MetersreferenceSinal_pwm per Second
   double error = (referenceValue - encoderValue);
+// pidTerm = referenceValue + Kp*error
 
   if(idMotor == MOTOR_LEFT_1) { //left
     pidTerm = referenceValue + Kp*error + Ki*int_error1 + Kd*(last_error1-error);
