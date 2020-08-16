@@ -11,7 +11,7 @@
 
 #define PI 3.14159265359
 
-double L = 0.5; // distance between axes
+double L = 0.42; // distance between axes
 double R = 0.0775; // wheel radius 
 
 double encoder_left = 0;

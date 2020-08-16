@@ -1,0 +1,19 @@
+pose_covariance: [0.1, 0.1, 100000000.0, 100000000.0, 100000000.0, 0.1]
+twist_covariance: [0.1, 100000000.0, 100000000.0, 100000000.0, 100000000.0, 0.5]
+initial_pose:
+  pos_x_meters: 0.0
+  pos_y_meters: 0.0
+  ang_z_rad: 0.0
+odom_topic_name: /odometry/slam
+slam_pose_topic_name: /hector/poseupdate
+publish_tf: false
+odom_frame_id: odom
+robot_frame_id_: base_link
+
+#Filter parameters
+cutoff_freq_linear_vel: 2.0
+cutoff_freq_angular_vel: 50.0
+damping_linear_vel: 1.0
+damping_angular_vel: 1.0
+cut_off_value_linear: 0.5
+cut_off_value_angular: 2.0

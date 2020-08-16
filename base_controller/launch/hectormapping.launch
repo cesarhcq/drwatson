@@ -28,7 +28,7 @@ See the "map_update_distance_thresh" it means that the close obstacles can be ig
 
     <!--Gyro from smartphone-->
     <node name="imu_node" pkg="arduino_controller" type="gyro-smartphone.py" output="screen">
-       <param name="host" value="192.168.42.72" /> <!--Need to change everytime when reconnect the device-->
+       <param name="host" value="192.168.42.195" /> <!--Need to change everytime when reconnect the device-->
        <param name="num_callibration_itrs" value="1" />
         <param name="debug" value="false" />
     </node>
@@ -42,17 +42,17 @@ See the "map_update_distance_thresh" it means that the close obstacles can be ig
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(find base_controller)/rviz/laser_test_hector_mapping.rviz" /> 
 
     <arg name="tf_map_scanmatch_transform_frame_name" default="scanmatcher_frame"/>
-  <arg name="base_frame" default="base_link"/> 
-  <arg name="odom_frame" default="odom"/> <!-- base_link -->
-  <arg name="map_frame" default="map"/>
+    <arg name="base_frame" default="base_link"/> 
+    <arg name="odom_frame" default="odom"/> <!-- base_link -->
+    <arg name="map_frame" default="map"/>
 
-  <arg name="pub_map_odom_transform" default="true"/>
-  <arg name="pub_map_scanmatch_transform" default="true"/>
+    <arg name="pub_map_odom_transform" default="true"/>
+    <arg name="pub_map_scanmatch_transform" default="true"/>
 
-  <arg name="scan_subscriber_queue_size" default="5"/>
-  <arg name="scan_topic" default="/scan"/>
-  <arg name="map_size" default="2048"/>
-  <arg name="namespace" default=""/>
+    <arg name="scan_subscriber_queue_size" default="5"/>
+    <arg name="scan_topic" default="/scan"/>
+    <arg name="map_size" default="2048"/>
+    <arg name="namespace" default=""/>
 
 
     <node pkg="hector_mapping" type="hector_mapping" name="hector_height_mapping" output="screen" >
@@ -90,20 +90,13 @@ See the "map_update_distance_thresh" it means that the close obstacles can be ig
         <param name="tf_map_scanmatch_transform_frame_name" value="$(arg tf_map_scanmatch_transform_frame_name)"/>
 
     </node>
-
-    <arg name="geotiff_map_file_path" default="$(find hector_geotiff)/maps"/>
-
+    <node pkg="base_controller" type="slam_odometry_node" name="slam_odometry_node" clear_params="true" output="screen">
+        <rosparam command="load" file="$(find base_controller)/config/slam_odom_config.yaml"/>
+    </node>
+    
     <param name="/use_sim_time" value="false"/>
 
-    <include file="$(find hector_geotiff)/launch/geotiff_mapper.launch">
-        <arg name="trajectory_source_frame_name" value="scanmatcher_frame"/>
-        <arg name="map_file_path" value="$(arg geotiff_map_file_path)"/>
-    </include>
-
  <!--    <node name="teleop" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen" launch-prefix="xterm -e"/> -->
-
-    <!-- Teleop -->
-    <!--<node name="GuntherTeleop" pkg="arduino_controller" type="gunther_teleop.py" output="screen" launch-prefix="xterm -e"/> -->
 
 </launch>
 

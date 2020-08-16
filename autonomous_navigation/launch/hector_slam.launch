@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<launch>
+
+	<arg name="geotiff_map_file_path" default="$(find autonomous_navigation)/maps"/>
+
+	<include file="$(find base_controller)/launch/hectormapping.launch"/>
+
+  <include file="$(find autonomous_navigation)/launch/geotiff_mapper.launch">
+    <arg name="trajectory_source_frame_name" value="scanmatcher_frame"/>
+    <arg name="map_file_path" value="$(arg geotiff_map_file_path)"/>
+  </include>
+
+</launch>
