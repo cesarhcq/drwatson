@@ -13,7 +13,7 @@
 
       <!--Gyro from smartphone-->
   <node name="imu_node" pkg="arduino_controller" type="gyro-smartphone.py" output="screen">
-       <param name="host" value="192.168.42.72" /> <!--Need to change everytime when reconnect the device-->
+       <param name="host" value="192.168.42.72"/> <!--Need to change everytime when reconnect the device-->
        <param name="num_callibration_itrs" value="1" />
         <param name="debug" value="false" />
   </node>
@@ -21,7 +21,7 @@
   <!--Odometry Controller-->
   <node name="base_controller_node" pkg="base_controller" type="base_controller" output="screen" >
     <param name="alpha" value="0.0" />
-    <param name="use_imu" value="true" />
+    <param name="use_imu" value="false" />
   </node>
 
   <!--Camera USB-->
@@ -36,7 +36,7 @@
     </node> -->
 
   <!-- Open Rviz -->
-  <!--<node name="rviz" pkg="rviz" type="rviz" args="-d $(find base_controller)/rviz_encoder_gyro.rviz" /> -->
+<!--   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find base_controller)/rviz_encoder_gyro.rviz" />  -->
 
   <!-- GuntherTeleop -->
 <!--   <node name="teleop" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen" launch-prefix="xterm -e"/>  -->

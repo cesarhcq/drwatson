@@ -11,13 +11,13 @@
 
     <!--Gyro from smartphone-->
     <node name="imu_node" pkg="arduino_controller" type="gyro-smartphone.py" output="screen">
-       <param name="host" value="192.168.42.23" /> <!--Need to change everytime when reconnect the device-->
+       <param name="host" value="192.168.42.72" /> <!--Need to change everytime when reconnect the device-->
        <param name="num_callibration_itrs" value="1" />
         <param name="debug" value="false" />
     </node>
   
   <!-- Map server -->
-  <arg name="map_file" default="$(find autonomous_navigation)/maps/room_cesar.yaml"/>
+  <arg name="map_file" default="$(find autonomous_navigation)/maps/alan_house_2.yaml"/>
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
 
   <!--Arduino Low-Controller -->
@@ -61,6 +61,8 @@
     <param name="update_min_d" value="0.02"/> <!-- 2 cm-->
     <param name="update_min_a" value="0.02"/> <!-- 0.02 rad-->
     <param name="odom_frame_id" value="odom"/>
+    <param name="base_frame_id" value="base_link"/>
+    <param name="global_frame_id" value="map"/>
     <param name="resample_interval" value="1"/> <!-- 1 -->
     <param name="transform_tolerance" value="0.1"/> <!-- 0.1 -->
     <param name="recovery_alpha_slow" value="0.001"/> 
@@ -71,7 +73,7 @@
     <remap from="/scan" to="/scan"/>
     <param name="tf_broadcast" value="true"/>
     <param name="use_map_topic" value="true"/>
-    <param name="first_map_only" value="true"/>
+    <param name="first_map_only" value="false"/>
   </node>
 
   <node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen">

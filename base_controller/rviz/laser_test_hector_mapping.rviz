@@ -8,6 +8,7 @@ Panels:
         - /Status1
         - /TF1
         - /TF1/Frames1
+        - /Odometry1
         - /Odometry1/Shape1
       Splitter Ratio: 0.5
     Tree Height: 416
@@ -80,9 +81,9 @@ Visualization Manager:
       Enabled: true
       Invert Rainbow: false
       Max Color: 255; 255; 255
-      Max Intensity: 34270
+      Max Intensity: 33707
       Min Color: 0; 0; 0
-      Min Intensity: 3246
+      Min Intensity: 2974
       Name: Sick LaserScan
       Position Transformer: XYZ
       Queue Size: 10
@@ -166,7 +167,7 @@ Visualization Manager:
           Value: true
         Value: false
       Enabled: true
-      Keep: 100
+      Keep: 0
       Name: Odometry
       Position Tolerance: 0.10000000149011612
       Shape:
@@ -210,7 +211,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 6.337989807128906
+      Distance: 7.793551921844482
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
