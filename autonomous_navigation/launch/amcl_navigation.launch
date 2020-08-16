@@ -7,32 +7,32 @@
   <!--Laser rplidar-->
 <!--   <include file="$(find rplidar_ros)/launch/rplidar.launch" /> -->
 
-  <include file="$(find sick_scan)/launch/sick_tim_5xx.launch"/>
+  <!-- <include file="$(find sick_scan)/launch/sick_tim_5xx.launch"/> -->
 
 
 
     <!--Gyro from smartphone-->
-    <node name="imu_node" pkg="arduino_controller" type="gyro-smartphone.py" output="screen">
-       <param name="host" value="192.168.42.96" /> <!--Need to change everytime when reconnect the device-->
-       <param name="num_callibration_itrs" value="1" />
+    <!-- <node name="imu_node" pkg="arduino_controller" type="gyro-smartphone.py" output="screen"> -->
+       <!-- <param name="host" value="192.168.42.96" /> Need to change everytime when reconnect the device -->
+       <!-- <param name="num_callibration_itrs" value="1" />
         <param name="debug" value="false" />
-    </node>
+    </node> -->
   
-    <!-- Map server -->
-  <arg name="map_file" default="$(find autonomous_navigation)/maps/cesar_room_2.yaml"/>
-  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+    <!-- Map server
+  <arg name="map_file" default="$(find autonomous_navigation)/maps/house_map.yaml"/>
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" /> -->
 
   <!--Arduino Low-Controller -->
-  <node name="arduino_controller" pkg="rosserial_python" type="serial_node.py" output= "screen">
+  <!-- <node name="arduino_controller" pkg="rosserial_python" type="serial_node.py" output= "screen">
     <param name="port" value="/dev/ttyACM0"/>  
     <param name="baud" value="57600"/>
-  </node>
+  </node> -->
 
   <!--Odometry Controller-->
-  <node name="base_controller_node" pkg="base_controller" type="base_controller">
+  <!-- <node name="base_controller_node" pkg="base_controller" type="base_controller">
     <param name="alpha" value="0.0" />
     <param name="use_imu" value="false" />
-  </node>
+  </node> -->
 
   <!-- Localization -->
   <node name="amcl" pkg="amcl" type="amcl" output="screen">
@@ -78,7 +78,7 @@
     <param name="first_map_only" value="false"/>
   </node>
 
-  <node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen" clear_params="true">
+  <!-- <node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen" clear_params="true">
     <rosparam file="$(find autonomous_navigation)/param/costmap_common_params.yaml" command="load" ns="global_costmap" />
     <rosparam file="$(find autonomous_navigation)/param/costmap_common_params.yaml" command="load" ns="local_costmap" />
 
@@ -90,11 +90,11 @@
     <rosparam file="$(find autonomous_navigation)/param/move_base_params.yaml" command="load" />
     
     <rosparam file="$(find autonomous_navigation)/param/global_planner_params.yaml" command="load" />
-    <rosparam file="$(find autonomous_navigation)/param/navfn_global_planner_params.yaml" command="load" />
+    <rosparam file="$(find autonomous_navigation)/param/navfn_global_planner_params.yaml" command="load" /> -->
 <!--     <rosparam file="$(find autonomous_navigation)/param/dwa_local_planner_params.yaml" command="load" /> -->
-  </node>
+  <!-- </node>
 
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find autonomous_navigation)/rviz/amcl_real_navigation.rviz" /> 
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find autonomous_navigation)/rviz/amcl_real_navigation.rviz" />  -->
 
 <!--   <node name="teleop" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen" launch-prefix="xterm -e"/>  -->
 

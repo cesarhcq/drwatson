@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <!--
 notice : you should install hector-slam at first,  sudo apt-get install ros-indigo-hector-slam
            this launch just for test, you should improve the param for the best result.
@@ -39,7 +40,7 @@ See the "map_update_distance_thresh" it means that the close obstacles can be ig
         <param name="use_imu" value="true" />
     </node>
 
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find base_controller)/rviz/laser_test_hector_mapping.rviz" /> 
+    <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find base_controller)/rviz/laser_test_hector_mapping.rviz" />  -->
 
     <arg name="tf_map_scanmatch_transform_frame_name" default="scanmatcher_frame"/>
     <arg name="base_frame" default="base_link"/> 
