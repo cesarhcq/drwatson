@@ -2,7 +2,7 @@
 <launch>
 
 	<!-- Carrega o arquivo do mapa -->
-	<arg name="map_file" default="$(find autonomous_navigation)/maps/house_map.yaml"/>
+	<arg name="map_file" default="$(find autonomous_navigation)/maps/escritorio.yaml"/>
 	<rosparam file="$(arg map_file)" command="load" ns="map_info"/>
 	<node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
 
