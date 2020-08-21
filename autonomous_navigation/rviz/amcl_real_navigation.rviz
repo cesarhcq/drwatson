@@ -148,9 +148,9 @@ Visualization Manager:
       Enabled: true
       Invert Rainbow: false
       Max Color: 255; 255; 255
-      Max Intensity: 33150
+      Max Intensity: 36870
       Min Color: 0; 0; 0
-      Min Intensity: 4190
+      Min Intensity: 1821
       Name: LaserScan
       Position Transformer: XYZ
       Queue Size: 10

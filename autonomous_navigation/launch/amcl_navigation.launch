@@ -18,13 +18,13 @@
 
   <!--Gyro from smartphone-->
   <node name="imu_node" pkg="arduino_controller" type="gyro-smartphone.py" output="screen"> -->
-    <param name="host" value="192.168.42.23" />
+    <param name="host" value="192.168.42.72" />
     <param name="num_callibration_itrs" value="1" />
     <param name="debug" value="false" />
   </node>
   
 
-  <arg name="map_file" default="$(find autonomous_navigation)/maps/quarto_alan.yaml"/>
+  <arg name="map_file" default="$(find autonomous_navigation)/maps/sala_cesar_2.yaml"/>
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
 
   <!--Arduino Low-Controller -->
@@ -83,7 +83,7 @@
     <param name="first_map_only" value="false"/>
   </node>
 
-  <!-- <node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen" clear_params="true">
+  <node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen" clear_params="true">
     <rosparam file="$(find autonomous_navigation)/param/costmap_common_params.yaml" command="load" ns="global_costmap" />
     <rosparam file="$(find autonomous_navigation)/param/costmap_common_params.yaml" command="load" ns="local_costmap" />
 
@@ -95,9 +95,9 @@
     <rosparam file="$(find autonomous_navigation)/param/move_base_params.yaml" command="load" />
     
     <rosparam file="$(find autonomous_navigation)/param/global_planner_params.yaml" command="load" />
-    <rosparam file="$(find autonomous_navigation)/param/navfn_global_planner_params.yaml" command="load" /> -->
-<!--     <rosparam file="$(find autonomous_navigation)/param/dwa_local_planner_params.yaml" command="load" /> -->
-<!--   </node> -->
+    <rosparam file="$(find autonomous_navigation)/param/navfn_global_planner_params.yaml" command="load" />
+    <!--     <rosparam file="$(find autonomous_navigation)/param/dwa_local_planner_params.yaml" command="load" /> -->
+  </node>
 
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find autonomous_navigation)/rviz/amcl_real_navigation.rviz" /> 
 
