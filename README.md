@@ -106,7 +106,7 @@ It was necessary to implement a Slam Odometry Node, coded by Apolo Marton. Thank
 
 ### The robot model is based on Arlo Platform with Differential drive. (TODO) 
 
-
+A description of the robot will be implemented to visualize on RViz. (TODO)
 
  If you need to add more sensors in your Robot, follow this great tutorial provided by: [Gazebo Sensors](http://gazebosim.org/tutorials/?tut=add_laser). Please, do not forget to add the .dae or .stl extension of the sensors.
 
