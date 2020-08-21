@@ -100,7 +100,9 @@ The encoder model which we are using is [Encoder model](https://www.filipeflop.c
 
 The motor controller used in this project is the [Pololu Dual VNH5019](https://www.pololu.com/product/2507). It is necessary to install the libraries for Arduino board. You can make the download in the [Pololu Github](https://github.com/pololu/dual-vnh5019-motor-shield). In order to unzip the library you need to find the ```skecthbook``` folder, probably in ```$ /home/user/sketchbook/libraries```. Now, restart or open the Arduino IDE to test the example code provided by ```Demo.ino```.
 
+## Slam Odometry Node
 
+It was necessary to implement a Slam Odometry Node, coded by Apolo Marton. Thanks for the implementation. LaserScan provide the odometry to the robot pose. A subscriber topic ```/pose/update``` was read by the algorithm in order to navigate around the environment.
 
 ### The robot model is based on Arlo Platform with Differential drive. (TODO) 
 
