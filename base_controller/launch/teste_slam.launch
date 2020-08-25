@@ -49,6 +49,7 @@
         <param name="tf_map_scanmatch_transform_frame_name" value="$(arg tf_map_scanmatch_transform_frame_name)"/>
 
     </node>
+
     <node pkg="base_controller" type="slam_odometry_node" name="slam_odometry_node" clear_params="true" output="screen">
         <rosparam command="load" file="$(find base_controller)/config/slam_odom_config.yaml"/>
     </node>
