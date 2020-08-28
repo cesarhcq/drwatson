@@ -18,7 +18,7 @@
 
   <!--Gyro from smartphone-->
   <node name="imu_node" pkg="arduino_controller" type="gyro-smartphone.py" output="screen"> -->
-    <param name="host" value="192.168.42.45" />
+    <param name="host" value="192.168.42.132" />
     <param name="num_callibration_itrs" value="1" />
     <param name="debug" value="false" />
   </node>
