@@ -5,12 +5,13 @@
 #include <tf/transform_broadcaster.h>
 #include <nav_msgs/Odometry.h>
 #include <geometry_msgs/Twist.h>
+#include <geometry_msgs/Vector3.h>
 #include <geometry_msgs/Vector3Stamped.h>
 #include <sensor_msgs/Imu.h>
 
 #define PI 3.14159265359
 
-double L = 0.5; // distance between axes
+double L = 0.42; // distance between axes
 double R = 0.0775; // wheel radius 
 
 double encoder_left = 0;
@@ -36,15 +37,27 @@ void handle_vel_encoder(const geometry_msgs::Vector3Stamped& encoder) {
 }
 
 // Gyro Function from Smartphone
-void handle_gyro( const sensor_msgs::Imu::ConstPtr& msg) {
-  gyro_x = msg->angular_velocity.x;
-  gyro_y = msg->angular_velocity.y;
-  gyro_z = msg->angular_velocity.z;
+void handle_gyro(const geometry_msgs::Vector3& msg) {
+  gyro_x = msg.x;
+  gyro_y = msg.y;
+  gyro_z = msg.z;
+  //gyro_z = (msg.z*180)/PI; // deg/s
   //gyro_z = (msg->angular_velocity.z*PI)/180; // rad/s
-
+  
   //ROS_INFO("gyro_z: %lf ", gyro_z);
   //ROS_INFO("Imu angular_velocity x: [%f], y: [%f], z: [%f]", msg->angular_velocity.x,msg->angular_velocity.y,msg->angular_velocity.z);
 }
+
+//
+// void handle_gyro( const sensor_msgs::Imu::ConstPtr& msg) {
+//   gyro_x = msg->angular_velocity.x;
+//   gyro_y = msg->angular_velocity.y;
+//   gyro_z = msg->angular_velocity.z;
+//   //gyro_z = (msg->angular_velocity.z*PI)/180; // rad/s
+  
+//   //ROS_INFO("gyro_z: %lf ", gyro_z);
+//   //ROS_INFO("Imu angular_velocity x: [%f], y: [%f], z: [%f]", msg->angular_velocity.x,msg->angular_velocity.y,msg->angular_velocity.z);
+// }
 
 // Robot Differential Drive Reverse Kinematic
 void reverse_kinematics(){
@@ -59,9 +72,9 @@ int main(int argc, char** argv){
 
   ros::NodeHandle nh;
   ros::NodeHandle nh_private_("~");
-  //ros::Subscriber gyro_sub = nh.subscribe("gyro", 50, handle_gyro);
+  ros::Subscriber gyro_sub = nh.subscribe("gyro", 50, handle_gyro);
   ros::Subscriber sub = nh.subscribe("/vel_encoder", 100, handle_vel_encoder);
-  ros::Subscriber gyro_sub = nh.subscribe("/imu/data", 50, handle_gyro);
+  //ros::Subscriber gyro_sub = nh.subscribe("/imu", 50, handle_gyro);
 
   ros::Publisher odom_pub = nh.advertise<nav_msgs::Odometry>("odom", 50);
 
@@ -92,8 +105,8 @@ int main(int argc, char** argv){
     //set tf base_link and laser 
     baselink_broadcaster.sendTransform(
     tf::StampedTransform(
-      tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0.15, 0.0, 0.13)),
-      ros::Time::now(),"base_link", "laser"));
+      tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0.0, 0.0, 0.13)),
+      ros::Time::now(),"base_link", "laser_peru"));
 
     if(!init){
 
@@ -126,6 +139,8 @@ int main(int argc, char** argv){
       x += delta_x;
       y += delta_y;
       th += delta_th;
+
+      // ROS_INFO("DEBUG - dth: %lf ", delta_th);
 
       //ROS_INFO("DEBUG - x %lf - y %lf - dth: %lf - dt: %lf", x, y, delta_th, dt);
       //ROS_INFO("encoder_left %lf - encoder_right %lf - time: %lf", encoder_left, encoder_right, dt);
@@ -172,8 +187,8 @@ int main(int argc, char** argv){
       odom.twist.twist.angular.z = vth;
 
       //set the covariance encoder
-      odom.pose.covariance[0] = 5.0;
-      odom.pose.covariance[7] = 5.0;
+      odom.pose.covariance[0] = 5.0; //5.0
+      odom.pose.covariance[7] = 5.0; //5.0
       odom.pose.covariance[14] = 1e-3;
       odom.pose.covariance[21] = 0.1;
       odom.pose.covariance[28] = 0.1;

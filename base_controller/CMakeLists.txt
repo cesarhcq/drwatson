@@ -190,6 +190,14 @@ include_directories(
 #   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 # )
 
+install(DIRECTORY launch/
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
+)
+
+install(DIRECTORY config/
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/config
+)
+
 #############
 ## Testing ##
 #############
@@ -205,6 +213,9 @@ include_directories(
 
 add_executable(base_controller src/base_controller.cpp)
 target_link_libraries(base_controller ${catkin_LIBRARIES})
+
+add_executable(slam_odometry_node src/slam_odometry.cpp)
+target_link_libraries(slam_odometry_node ${catkin_LIBRARIES})
 
 
 

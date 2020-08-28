@@ -10,7 +10,7 @@ from geometry_msgs.msg import Vector3
 from math import sqrt,atan2,cos,sin,pi
 
 def imu_publisher(sock):
-    host="192.168.42.180" #everytime changes according to restart UDP
+    host="192.168.42.72" #everytime changes according to restart UDP
     port=5555
     theta = 0
     gyro_x_offset = 0.0
