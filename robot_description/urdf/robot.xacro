@@ -1,0 +1,313 @@
+<?xml version='1.0'?>
+
+<robot name="myrobot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find robot_description)/urdf/robot.gazebo" />
+  <xacro:include filename="$(find robot_description)/urdf/materials.xacro" />
+
+  <!-- Base Robotic -->
+  <link name="base_link">
+    <inertial>
+      <mass value="2.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.01" ixy="0.0" ixz="0.0"
+               iyy="0.01" iyz="0.0" izz="0.1" />
+    </inertial>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry name="guntherbot_geom">
+        <mesh filename="$(find robot_description)/meshes/robot.stl" scale="0.01 0.01 0.01"/>
+      </geometry>
+      <material name="ChassisRed">
+        <color rgba="0.851 0.0 0.0 1.0"/>
+      </material>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="$(find robot_description)/meshes/robot.stl" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Castor Frontal -->
+  <link name="front_caster">
+    <inertial>
+      <mass value="0.5" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.01" ixy="0.0" ixz="0.0"
+               iyy="0.01" iyz="0.0" izz="0.01" />
+    </inertial>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="$(find robot_description)/meshes/castor_front.stl" scale="0.01 0.01 0.01"/>
+      </geometry>
+      <material name ="light_grey">
+        <color rgba="0.6 0.6 0.6 1"/>
+      </material>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 1.5707 0" />
+      <geometry>
+        <cylinder length="0.027026" radius="0.0381"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="front_caster_joint" type="fixed">
+    <!-- <origin xyz="-0.1930 0.4134 -0.065" rpy="0 0 0" /> -->
+    <origin xyz="0 0.2488 -0.03627" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="front_caster" />
+  </joint>
+
+
+
+
+  <!-- Left Axle Link -->
+  <link name="left_axle_link">
+    <inertial>
+      <origin xyz="0 0 0"/>
+      <mass value="0.01" />
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0"
+        iyy="0.001" iyz="0.0" izz="0.001" />
+    </inertial>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="3.1414 1.5707 3.1414" />
+      <geometry>
+        <cylinder radius="0.00735" length = "0.0369"/>  
+        <!-- 10.905 mm 0.01095*2 = 0.0219 m -->
+      </geometry>
+      <material name ="light_grey" />
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="3.1414 1.5707 3.1414" />
+      <geometry>
+        <cylinder radius="0.00735" length = "0.0369"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="left_axle_joint" type="fixed">
+    <origin xyz="-0.1675 0 0" rpy="3.1414 0 3.1415"/>
+    <parent link="base_link"/>
+    <child link="left_axle_link"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+
+  <!-- Right Axle Link -->
+  <link name="right_axle_link">
+    <inertial>
+      <origin xyz="0 0 0"/>
+      <mass value="0.01" />
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0"
+        iyy="0.001" iyz="0.0" izz="0.001" />
+    </inertial>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 1.5707 0" />
+      <geometry>
+        <cylinder radius="0.00735" length = "0.0369"/>  
+        <!-- 10.905 mm 0.01095*2 = 0.0219 m -->
+      </geometry>
+      <material name ="light_grey" />
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 1.5707 0" />
+      <geometry>
+        <cylinder radius="0.00735" length = "0.0369"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="right_axle_joint" type="fixed">
+    <origin xyz="0.1675 0 0" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="right_axle_link"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+
+  <!-- Left Wheel Link -->
+  <link name="left_wheel_link">
+    <inertial>
+      <origin xyz="0 0 0"/>
+      <mass value="0.5"/>
+      <inertia 
+      ixx="0.001" ixy="0.0" ixz="0.0" 
+      iyy="0.001" iyz="0.0" 
+      izz="0.001"/>
+    </inertial>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="$(find robot_description)/meshes/wheel.stl" scale="0.01 0.01 0.01"/>
+        <!-- <cylinder length="0.033" radius="0.076250"/> -->
+      </geometry>
+      <material name ="black" />
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 1.5707 0" />
+      <geometry>
+        <cylinder length="0.033" radius="0.076250"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="left_wheel_joint" type="continuous">
+    <!-- pi/2(90) = 1.5707     pi(180) = 3.1414 -->
+    <origin xyz="0.03895 0 0" rpy="0 0 0"/>
+    <!-- 20.5 mm 0.0205  r/2 = 0.01845-->
+    <parent link="left_axle_link"/>
+    <child link="left_wheel_link"/>
+    <axis xyz="1 0 0"/>
+  </joint>
+
+
+  <!-- Right Wheel Link -->
+  <link name="right_wheel_link">
+    <inertial>
+      <origin xyz="0 0 0"/>
+      <mass value="0.5"/>
+      <inertia 
+      ixx="0.001" ixy="0.0" ixz="0.0" 
+      iyy="0.001" iyz="0.0" 
+      izz="0.001"/>
+    </inertial>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="$(find robot_description)/meshes/wheel.stl" scale="0.01 0.01 0.01"/>
+        <!-- <cylinder length="0.033" radius="0.076250"/> -->
+      </geometry>
+      <material name ="black" />
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 1.5707 0" />
+      <geometry>
+        <cylinder length="0.033" radius="0.076250"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="right_wheel_joint" type="continuous">
+    <!-- pi = 1.5707     2pi = 3.1415 -->
+    <origin xyz="0.03895 0 0" rpy="0 0 0"/>
+    <!-- 20.5 mm 0.0205  r/2 = 0.01845-->
+    <parent link="right_axle_link"/>
+    <child link="right_wheel_link"/>
+    <axis xyz="-1 0 0"/>
+  </joint>
+
+
+
+
+  <!-- Bateria -->
+  <link name="battery_box">
+    <inertial>
+      <mass value="5.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.01" ixy="0.0" ixz="0.0"
+               iyy="0.01" iyz="0.0" izz="0.01" />
+    </inertial>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="$(find robot_description)/meshes/battery.stl" scale="0.01 0.01 0.01"/>
+      </geometry>
+      <material name ="veryDarkGrey" />
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="$(find robot_description)/meshes/battery.stl" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="battery_box_joint" type="fixed">
+    <origin xyz="0 0.148934 0.03475" rpy="0 0 0" />
+    <!-- <origin xyz="0 0.065388 0.03475" rpy="0 0 0" /> -->
+    <parent link="base_link" />
+    <child link="battery_box" />
+  </joint>
+
+  <!-- Robot Upper Base -->
+  <link name="upper_base">
+    <inertial>
+      <mass value="4.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0"
+               iyy="0.001" iyz="0.0" izz="0.001" />
+    </inertial>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="$(find robot_description)/meshes/upper_base.stl" scale="0.01 0.01 0.01"/>
+      </geometry>
+      <material name ="veryDarkGrey" />
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="$(find robot_description)/meshes/upper_base.stl" scale="0.01 0.01 0.01"/>d
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="upper_base_joint" type="fixed">
+    <!-- <origin xyz="0 0 0.11075" rpy="0 0 0" /> -->
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="upper_base" />
+  </joint>
+
+  <!-- Camera -->
+  <link name="camera_link">
+    <inertial>
+      <mass value="0.1" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />
+    </inertial>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="$(find robot_description)/meshes/cam.stl" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>0
+        <mesh filename="$(find robot_description)/meshes/cam.stl" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="camera_link_joint" type="fixed">
+    <origin xyz="-0.0328 0.28745 0.182250" rpy="0 0 1.5707"/>
+    <parent link="base_link"/>
+    <child link="camera_link"/>
+  </joint>
+
+
+
+</robot>

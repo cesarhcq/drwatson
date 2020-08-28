@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<launch>
+
+	<!-- Carrega o arquivo do mapa -->
+	<arg name="map_file" default="$(find autonomous_navigation)/maps/escritorio.yaml"/>
+	<rosparam file="$(arg map_file)" command="load" ns="map_info"/>
+	<node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+
+	<!-- Publica a odometria do laser -->
+	<include file="$(find base_controller)/launch/hectormapping.launch">
+		<arg name="pub_map_odom_transform" value="true"/>
+		<arg name="pub_map_scanmatch_transform" value="false"/>
+		<arg name="namespace" value="hector"/>
+		<arg name= "odom_frame" value="base_link"/>
+		<arg name= "map_frame" value="odom"/>
+	</include>
+		
+  	<!-- AMCL para publicar transformacao para o mapa-->
+	<include file="$(find autonomous_navigation)/launch/amcl_navigation.launch"/>
+
+
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen" clear_params="true">
+  
+        <rosparam file="$(find autonomous_navigation)/param/costmap_common_params.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find autonomous_navigation)/param/costmap_common_params.yaml" command="load" ns="local_costmap" />
+
+        <rosparam file="$(find autonomous_navigation)/param/global_costmap_params.yaml" command="load" />
+        <rosparam file="$(find autonomous_navigation)/param/local_costmap_params.yaml" command="load" />
+
+
+        <rosparam file="$(find autonomous_navigation)/param/base_local_planner_params.yaml" command="load" />
+        <rosparam file="$(find autonomous_navigation)/param/move_base_params.yaml" command="load" />
+    
+        <rosparam file="$(find autonomous_navigation)/param/global_planner_params.yaml" command="load" />
+        <rosparam file="$(find autonomous_navigation)/param/navfn_global_planner_params.yaml" command="load" />
+        <!-- <rosparam file="$(find autonomous_navigation)/param/dwa_local_planner_params.yaml" command="load" /> -->
+    </node>
+
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find autonomous_navigation)/rviz/amcl_real_navigation.rviz" />
+
+</launch>

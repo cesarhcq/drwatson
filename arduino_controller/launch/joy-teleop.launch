@@ -1,0 +1,15 @@
+<launch>
+	
+	<!--Arduino Low-Controller -->
+    <node pkg="rosserial_python" type="serial_node.py" name="arduino_controller" output= "screen">
+        <param name="port" value="/dev/ttyACM0"/>  
+        <param name="baud" value="57600"/>
+    </node>
+
+    <!-- Joy Driver -->
+    <include file="$(find teleop_twist_joy)/launch/teleop.launch" />
+
+    <!-- Joy Teleop -->
+	<node name="JoyTeleop" pkg="teleop_twist_joy" type="teleop_node"/>
+
+</launch>

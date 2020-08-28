@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<launch>
+   <!-- Initial parameters for position in gazebo world -->
+  <arg name ="x" default="0"/>
+  <arg name ="y" default="0"/>
+  <arg name ="z" default="0.5"/>
+
+  <arg name="world" default="empty"/> 
+  <arg name="paused" default="false"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="gui" default="true"/>
+  <arg name="headless" default="false"/>
+  <arg name="debug" default="false"/>
+  
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <!-- Argument to change the world in Gazebo 'test2.world' -->
+    <arg name="world_name" value="$(find robot_gazebo)/worlds/test2.world"/>
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+    <arg name="gui" value="$(arg gui)"/>
+    <arg name="headless" value="$(arg headless)"/>
+    <arg name="debug" value="$(arg debug)"/>
+  </include>
+
+  <!-- Argument to change the description of robot 'robot.xacro' -->
+  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find robot_description)/urdf/robot.xacro'"/>
+
+  <node name="robot_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
+   args="-urdf -param robot_description -model robot -x $(arg x) -y $(arg y) -z $(arg z)" />
+
+  <!-- send fake joint values -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="use_gui" value="False"/>
+  </node>
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
+
+  <!-- Show in Rviz   -->
+	<!--   <node name="rviz" pkg="rviz" type="rviz"/> -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find robot_description)/rviz/robot_navigation.rviz"/>
+
+  <!-- GuntherTeleop -->
+  <node name="GuntherTeleop" pkg="robot_description" type="gunther_teleop.py" output="screen" launch-prefix="xterm -e"/>
+
+</launch>
