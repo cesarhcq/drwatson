@@ -1,5 +1,23 @@
 <?xml version="1.0"?>
-<robot>   
+<robot>
+
+  <!--gazebo reference="left_wheel_hinge">
+      <mu1 value="10000.0" />
+      <mu2 value="10000.0" />
+      <kp value="100000.0" />
+      <kd value="0.00001" />
+      <maxVel value="1.0" />
+      <minDepth value="0.0001" />
+  </gazebo>    
+  <gazebo reference="right_wheel_hinge">
+      <mu1 value="10000.0" />
+      <mu2 value="10000.0" />
+      <kp value="100000.0" />
+      <kd value="0.00001" />
+      <maxVel value="1.0" />
+      <minDepth value="0.0001" />
+  </gazebo-->    
+
   <gazebo>
     <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
       <legacyMode>false</legacyMode>
@@ -7,13 +25,12 @@
       <updateRate>10</updateRate>
       <leftJoint>left_wheel_joint</leftJoint>
       <rightJoint>right_wheel_joint</rightJoint>
-      <wheelSeparation>0.42</wheelSeparation>
-      <wheelDiameter>0.05</wheelDiameter> 
-      <torque>5.0</torque>
+      <wheelSeparation>0.4</wheelSeparation>
+      <wheelDiameter>0.2</wheelDiameter> 
+      <torque>10</torque>
       <commandTopic>cmd_vel</commandTopic>
       <odometryTopic>odom</odometryTopic>
       <odometryFrame>odom</odometryFrame>
-      <broadcastTF>true</broadcastTF>
       <robotBaseFrame>base_link</robotBaseFrame>
     </plugin>
   </gazebo>
@@ -23,36 +40,28 @@
     <material>Gazebo/DarkGrey</material>
   </gazebo>
 
-  <gazebo reference="front_caster">
-    <material>Gazebo/Grey</material>
+  <gazebo reference="battery_box">
+    <material>Gazebo/DarkGrey</material>
   </gazebo>
 
   <gazebo reference="left_wheel_link">
-    <material>Gazebo/DarkGrey</material>
+    <material>Gazebo/Black</material>
   </gazebo>
 
   <gazebo reference="right_wheel_link">
-    <material>Gazebo/DarkGrey</material>
-  </gazebo>
-
-  <gazebo reference="battery_box">
-    <material>Gazebo/Grey</material>
-  </gazebo>
-
-  <gazebo reference="upper_base">
-    <material>Gazebo/DarkGrey</material>
+    <material>Gazebo/Black</material>
   </gazebo>
 
 
-  <gazebo reference="camera_link">
-    <material>Gazebo/grey</material>
+<!--   <gazebo reference="camera">
+    <material>Gazebo/Green</material>
     <sensor type="camera" name="camera1">
       <update_rate>30.0</update_rate>
       <camera name="head">
         <horizontal_fov>1.3962634</horizontal_fov>
         <image>
-          <width>640</width>
-          <height>480</height>
+          <width>800</width>
+          <height>800</height>
           <format>R8G8B8</format>
         </image>
         <clip>
@@ -63,7 +72,7 @@
       <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
         <alwaysOn>true</alwaysOn>
         <updateRate>0.0</updateRate>
-        <cameraName>guntherBot/camera1</cameraName>
+        <cameraName>mybot/camera1</cameraName>
         <imageTopicName>image_raw</imageTopicName>
         <cameraInfoTopicName>camera_info</cameraInfoTopicName>
         <frameName>camera</frameName>
@@ -75,6 +84,45 @@
         <distortionT2>0.0</distortionT2>
       </plugin>
     </sensor>
-  </gazebo>
+  </gazebo> -->
 
+ <!-- Rplidar -->
+  <gazebo reference="base_laser">
+    <sensor type="gpu_ray" name="head_rplidar_sensor">
+      <pose>0 0 0 0 0 0</pose>
+
+      <visualize>false</visualize>
+      <update_rate>40</update_rate>
+      <update_rate>10</update_rate>
+
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>720</samples>
+            <resolution>1</resolution>
+            <min_angle>-3.14159265</min_angle>
+            <max_angle>3.14159265</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.3</min>
+          <max>10.0</max>
+          <resolution>0.01</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <!-- Noise parameters based on published spec for Hokuyo laser
+               achieving "+-30mm" accuracy at range < 10m.  A mean of 0.0m and
+               stddev of 0.01m will put 99.7% of samples within 0.03m of the true
+               reading. -->
+          <mean>0.0</mean>
+          <stddev>0.01</stddev>
+        </noise>
+      </ray>
+      <plugin name="gazebo_ros_head_rplidar_controller" filename="libgazebo_ros_gpu_laser.so">
+        <topicName>/scan</topicName>
+        <frameName>base_laser</frameName>
+      </plugin>
+    </sensor>
+  </gazebo>
 </robot>
