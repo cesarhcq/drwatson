@@ -10,22 +10,25 @@
      //this line is where we create the client that will communicate with actions that adhere to the base station interface
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
 
-	int main(int argc, char** argv){
-		ros::init(argc, argv, "map_navigation");
-		//tell the action client that we want to spin a thread by default
-		MoveBaseClient ac("move_base", true);
+  int main(int argc, char** argv){
+    ros::init(argc, argv, "map_navigation");
+    //tell the action client that we want to spin a thread by default
+    MoveBaseClient ac("move_base", true);
 
      //wait for the action server to come up and then start the process
      while(!ac.waitForServer(ros::Duration(5.0))){
-     	ROS_INFO("Waiting for the move_base action server to come up");
+      ROS_INFO("Waiting for the move_base action server to come up");
      }
 
      //This is where you create the goal to send to move_base using move_base_msgs::MoveBaseGoal messages to tell the robot to move one meter forward in the coordinate frame.
-		move_base_msgs::MoveBaseGoal goal;
-		move_base_msgs::MoveBaseGoal goal1;
-		move_base_msgs::MoveBaseGoal goal2;
-		move_base_msgs::MoveBaseGoal goal3;
-		move_base_msgs::MoveBaseGoal goal4;
+    move_base_msgs::MoveBaseGoal goal;
+    move_base_msgs::MoveBaseGoal goal1;
+    move_base_msgs::MoveBaseGoal goal2;
+    move_base_msgs::MoveBaseGoal goal3;
+    move_base_msgs::MoveBaseGoal goal4;
+    move_base_msgs::MoveBaseGoal goal5;
+    move_base_msgs::MoveBaseGoal goal6;
+    move_base_msgs::MoveBaseGoal goal7;
 
      //we'll send a goal to the robot to move 1 meter forward
      goal.target_pose.header.frame_id = "map";
@@ -68,49 +71,99 @@ typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseCl
      goal4.target_pose.pose.orientation.z = 0.44;
      goal4.target_pose.pose.orientation.w = 0.89;
 
+     goal5.target_pose.header.frame_id = "map";
+     goal5.target_pose.header.stamp = ros::Time::now();
+
+     goal5.target_pose.pose.position.x = 2.69;
+     goal5.target_pose.pose.position.y = -0.86;
+     goal5.target_pose.pose.orientation.z = -0.17;
+     goal5.target_pose.pose.orientation.w = 0.98;
+
+
+     goal6.target_pose.header.frame_id = "map";
+     goal6.target_pose.header.stamp = ros::Time::now();
+
+     goal6.target_pose.pose.position.x = 1.95;
+     goal6.target_pose.pose.position.y = 0.26;
+     goal6.target_pose.pose.orientation.z = 0.92;
+     goal6.target_pose.pose.orientation.w = 0.39;
+
+     goal7.target_pose.header.frame_id = "map";
+     goal7.target_pose.header.stamp = ros::Time::now();
+
+     goal7.target_pose.pose.position.x = 3.24;
+     goal7.target_pose.pose.position.y = -4.77;
+     goal7.target_pose.pose.orientation.z = -0.67;
+     goal7.target_pose.pose.orientation.w = 0.74;
+
+
+
+
      ROS_INFO("Sending goal");
 
      //this command sends the goal to the move_base node to be processed
-	ac.sendGoal(goal);
-		
+  ac.sendGoal(goal);
+    
      //After finalizing everything you have to wait for the goal to finish processing
      ac.waitForResult();
 
      //here we check for the goal if it succeded or failed and send a message according to the goal status.
-	if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED){
-		ROS_INFO("Robo chegou no waypoint 1");
-		ac.sendGoal(goal1);
-		ac.waitForResult();
-		if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED){
-			ROS_INFO("Robo chegou no waypoint 2");
-			ac.sendGoal(goal2);
-			ac.waitForResult();
-		}else{
-			ROS_INFO("The base failed to move forward 1 meter for some reason");
-		}
+  if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED){
+    ROS_INFO("Robo chegou no waypoint 1");
+    ac.sendGoal(goal1);
+    ac.waitForResult();
+    if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED){
+      ROS_INFO("Robo chegou no waypoint 2");
+      ac.sendGoal(goal2);
+      ac.waitForResult();
+    }else{
+      ROS_INFO("Falhou waypoint 2");
+    }
 
-		if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED){
-			ROS_INFO("Robo chegou no waypoint 3");
-			ac.sendGoal(goal3);
-			ac.waitForResult();
-		}else{
-			ROS_INFO("Falhou waypoint 4");
-		}
+    if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED){
+      ROS_INFO("Robo chegou no waypoint 3");
+      ac.sendGoal(goal3);
+      ac.waitForResult();
+    }else{
+      ROS_INFO("Falhou waypoint 4");
+    }
 
-		if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED){
-			ROS_INFO("Robo chegou no waypoint 4");
-			ac.sendGoal(goal4);
-			ac.waitForResult();
-		}else{
-			ROS_INFO("Falhou waypoint 4");
-		}
+    if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED){
+      ROS_INFO("Robo chegou no waypoint 4");
+      ac.sendGoal(goal4);
+      ac.waitForResult();
+    }else{
+      ROS_INFO("Falhou waypoint 4");
+    }
+
+    if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED){
+      ROS_INFO("Robo chegou no waypoint 5");
+      ac.sendGoal(goal5);
+      ac.waitForResult();
+    }else{
+      ROS_INFO("Falhou waypoint 5");
+    }
+
+    if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED){
+      ROS_INFO("Robo chegou no waypoint 6");
+      ac.sendGoal(goal6);
+      ac.waitForResult();
+    }else{
+      ROS_INFO("Falhou waypoint 6");
+    }
+
+    if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED){
+      ROS_INFO("Robo chegou no waypoint 7");
+      ac.sendGoal(goal7);
+      ac.waitForResult();
+    }else{
+      ROS_INFO("Falhou waypoint 7");
+    }
 
 
-			ROS_INFO("Robo chegou no waypoint 4 com sucesso");
+    ROS_INFO("Robo completou a missao");
+  }
 
 
-	}
-
-
-     return 0;
+  return 0;
 }
